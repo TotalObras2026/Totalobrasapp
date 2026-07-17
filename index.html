@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Total Obras: sistema de propostas, orçamentos, modelos, pacotes e gestão financeira para arquitetos, engenheiros e empresas de serviços." />
+  <meta name="theme-color" content="#14243a" />
+  <title>Total Obras | Planos e preços</title>
+  <style>
+    :root{
+      --navy:#14243a;
+      --navy-2:#1c3150;
+      --gold:#ddb33b;
+      --gold-2:#f0c950;
+      --cream:#f7f4ed;
+      --paper:#ffffff;
+      --text:#182235;
+      --muted:#677287;
+      --line:#e6e0d4;
+      --green:#1fbf82;
+      --shadow:0 18px 45px rgba(20,36,58,.12);
+      --radius:22px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:var(--text);
+      background:var(--cream);
+      line-height:1.55;
+    }
+
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    .container{width:min(1160px, calc(100% - 36px)); margin-inline:auto}
+
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(20,36,58,.96);
+      backdrop-filter:blur(12px);
+      color:#fff;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .nav{
+      min-height:76px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+
+    .brand-mark{
+      width:10px;
+      height:38px;
+      border-radius:8px;
+      background:linear-gradient(180deg,var(--gold-2),var(--gold));
+      box-shadow:0 0 0 4px rgba(221,179,59,.08);
+    }
+
+    .brand strong{display:block;font-size:1.18rem}
+    .brand span{display:block;color:#b8c3d2;font-size:.78rem;font-weight:600}
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:24px;
+      font-size:.95rem;
+      font-weight:700;
+    }
+
+    .nav-links a{color:#dce4ee}
+    .nav-links a:hover{color:#fff}
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      min-height:48px;
+      padding:0 20px;
+      border-radius:12px;
+      border:1px solid transparent;
+      font-weight:800;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{
+      background:linear-gradient(135deg,var(--gold-2),var(--gold));
+      color:var(--navy);
+      box-shadow:0 10px 28px rgba(221,179,59,.25);
+    }
+    .btn-outline{
+      color:#fff;
+      border-color:rgba(255,255,255,.2);
+      background:rgba(255,255,255,.04);
+    }
+    .btn-dark{
+      background:var(--navy);
+      color:#fff;
+    }
+
+    .hero{
+      position:relative;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 82% 20%, rgba(221,179,59,.18), transparent 30%),
+        linear-gradient(145deg,#14243a 0%,#1b3151 65%,#14243a 100%);
+      color:#fff;
+      padding:92px 0 118px;
+    }
+
+    .hero:after{
+      content:"";
+      position:absolute;
+      inset:auto -8% -80px -8%;
+      height:160px;
+      background:var(--cream);
+      border-radius:50% 50% 0 0;
+    }
+
+    .hero-grid{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:52px;
+      align-items:center;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      color:#f4d97e;
+      font-size:.82rem;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+
+    h1{
+      margin:20px 0 18px;
+      font-size:clamp(2.4rem,6vw,4.8rem);
+      line-height:.98;
+      letter-spacing:-.055em;
+      max-width:780px;
+    }
+
+    .hero p{
+      margin:0;
+      max-width:680px;
+      color:#cad4e1;
+      font-size:1.1rem;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:30px;
+    }
+
+    .hero-note{
+      margin-top:18px;
+      color:#aebacc;
+      font-size:.88rem;
+    }
+
+    .hero-card{
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.13);
+      border-radius:26px;
+      padding:26px;
+      box-shadow:0 26px 80px rgba(0,0,0,.22);
+    }
+
+    .mock-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:22px;
+    }
+
+    .mock-logo{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      font-weight:800;
+    }
+
+    .mock-dot{
+      width:10px;height:28px;border-radius:8px;background:var(--gold);
+    }
+
+    .status{
+      display:flex;
+      align-items:center;
+      gap:7px;
+      font-size:.78rem;
+      color:#dce5f1;
+    }
+    .status i{
+      width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;
+    }
+
+    .mock-box{
+      background:#fff;
+      color:var(--text);
+      border-radius:18px;
+      padding:20px;
+    }
+
+    .mock-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom:1px solid #edf0f4;
+      padding:12px 0;
+      font-size:.9rem;
+    }
+    .mock-row:last-child{border-bottom:none}
+    .mock-row span{color:var(--muted)}
+    .mock-total{
+      margin-top:16px;
+      padding:14px 16px;
+      border-radius:12px;
+      background:#f5f1e6;
+      display:flex;
+      justify-content:space-between;
+      font-weight:900;
+    }
+
+    section{padding:88px 0}
+    .section-head{text-align:center;max-width:760px;margin:0 auto 38px}
+    .section-head h2{
+      margin:0 0 12px;
+      font-size:clamp(2rem,4vw,3rem);
+      letter-spacing:-.04em;
+      line-height:1.05;
+    }
+    .section-head p{margin:0;color:var(--muted)}
+
+    .billing-toggle{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      margin:28px auto 42px;
+    }
+
+    .toggle-shell{
+      display:flex;
+      background:#e9e3d7;
+      border-radius:999px;
+      padding:5px;
+      gap:4px;
+    }
+
+    .toggle-shell button{
+      border:0;
+      background:transparent;
+      color:var(--muted);
+      border-radius:999px;
+      padding:10px 18px;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .toggle-shell button.active{
+      background:var(--paper);
+      color:var(--navy);
+      box-shadow:0 5px 14px rgba(20,36,58,.1);
+    }
+
+    .save-badge{
+      display:inline-flex;
+      align-items:center;
+      border-radius:999px;
+      padding:7px 11px;
+      background:#e9f8f1;
+      color:#157a57;
+      font-size:.78rem;
+      font-weight:800;
+    }
+
+    .pricing-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:22px;
+      align-items:stretch;
+    }
+
+    .price-card{
+      position:relative;
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:30px;
+      box-shadow:0 8px 28px rgba(20,36,58,.06);
+      display:flex;
+      flex-direction:column;
+    }
+
+    .price-card.featured{
+      border:2px solid var(--gold);
+      transform:translateY(-8px);
+      box-shadow:var(--shadow);
+    }
+
+    .popular{
+      position:absolute;
+      top:16px;
+      right:16px;
+      background:var(--gold);
+      color:var(--navy);
+      font-weight:900;
+      font-size:.72rem;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      padding:7px 10px;
+      border-radius:999px;
+    }
+
+    .plan-label{
+      color:var(--muted);
+      font-size:.85rem;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+
+    .price-card h3{
+      margin:7px 0 8px;
+      font-size:1.6rem;
+      letter-spacing:-.03em;
+    }
+
+    .plan-desc{
+      color:var(--muted);
+      min-height:52px;
+      margin:0 0 24px;
+    }
+
+    .price-line{
+      display:flex;
+      align-items:flex-end;
+      gap:6px;
+      margin-bottom:4px;
+    }
+
+    .currency{font-weight:900;margin-bottom:8px}
+    .price{
+      font-size:3.2rem;
+      line-height:1;
+      font-weight:950;
+      letter-spacing:-.06em;
+    }
+    .period{color:var(--muted);margin-bottom:6px}
+    .annual-detail{
+      min-height:26px;
+      color:var(--muted);
+      font-size:.86rem;
+      margin-bottom:22px;
+    }
+
+    .feature-list{
+      list-style:none;
+      padding:0;
+      margin:22px 0 28px;
+      display:grid;
+      gap:12px;
+    }
+    .feature-list li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color:#39465c;
+    }
+    .check{
+      flex:0 0 22px;
+      width:22px;
+      height:22px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:#edf8f4;
+      color:#16845f;
+      font-size:.78rem;
+      font-weight:900;
+    }
+
+    .price-card .btn{margin-top:auto;width:100%}
+
+    .comparison-wrap{
+      overflow:auto;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:0 10px 32px rgba(20,36,58,.06);
+    }
+
+    table{
+      width:100%;
+      min-width:760px;
+      border-collapse:collapse;
+    }
+    th,td{
+      padding:16px 18px;
+      text-align:center;
+      border-bottom:1px solid #ece8df;
+    }
+    th:first-child,td:first-child{text-align:left}
+    thead th{
+      background:#f8f6f0;
+      color:var(--navy);
+      font-size:.9rem;
+    }
+    tbody tr:last-child td{border-bottom:0}
+    td{color:#4d596d}
+    .yes{color:#16845f;font-weight:900}
+    .no{color:#a7aebb}
+    .highlight-col{background:#fffaf0}
+
+    .extras{
+      background:var(--navy);
+      color:#fff;
+    }
+    .extras .section-head p{color:#b9c5d3}
+
+    .extras-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .extra-card{
+      padding:24px;
+      border-radius:18px;
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.1);
+    }
+    .extra-card h3{margin:0 0 10px;font-size:1.05rem}
+    .extra-card p{margin:0;color:#b9c5d3}
+    .extra-card strong{
+      display:block;
+      margin-top:18px;
+      color:#f3d878;
+      font-size:1.15rem;
+    }
+
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:22px;
+    }
+    .step{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:26px;
+    }
+    .step-number{
+      width:42px;height:42px;border-radius:12px;
+      display:grid;place-items:center;
+      background:var(--navy);
+      color:var(--gold-2);
+      font-weight:950;
+      margin-bottom:18px;
+    }
+    .step h3{margin:0 0 8px}
+    .step p{margin:0;color:var(--muted)}
+
+    .faq{
+      display:grid;
+      gap:12px;
+      max-width:860px;
+      margin:0 auto;
+    }
+
+    details{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:18px 20px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:850;
+      color:var(--navy);
+    }
+    details p{margin:12px 0 0;color:var(--muted)}
+
+    .cta{
+      padding-top:30px;
+      padding-bottom:92px;
+    }
+    .cta-box{
+      background:linear-gradient(135deg,var(--gold-2),var(--gold));
+      border-radius:28px;
+      padding:44px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:30px;
+      box-shadow:0 18px 50px rgba(221,179,59,.2);
+    }
+    .cta-box h2{
+      margin:0 0 8px;
+      color:var(--navy);
+      font-size:clamp(1.8rem,4vw,2.8rem);
+      letter-spacing:-.04em;
+    }
+    .cta-box p{margin:0;color:#4a442f}
+
+    footer{
+      background:#0f1c2e;
+      color:#aeb9c8;
+      padding:36px 0;
+    }
+    .footer-row{
+      display:flex;
+      justify-content:space-between;
+      gap:24px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .footer-row strong{color:#fff}
+
+    @media (max-width: 920px){
+      .nav-links a:not(.btn){display:none}
+      .hero-grid{grid-template-columns:1fr}
+      .hero-card{max-width:620px}
+      .pricing-grid,.extras-grid,.steps{grid-template-columns:1fr}
+      .price-card.featured{transform:none}
+      .cta-box{flex-direction:column;align-items:flex-start}
+    }
+
+    @media (max-width: 620px){
+      .container{width:min(100% - 24px,1160px)}
+      .hero{padding:68px 0 98px}
+      .nav-links .btn{padding:0 14px;min-height:42px}
+      .hero-actions{flex-direction:column}
+      .hero-actions .btn{width:100%}
+      .price-card{padding:24px}
+      .billing-toggle{flex-direction:column}
+      .cta-box{padding:30px 24px}
+      .footer-row{align-items:flex-start;flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#inicio" aria-label="Total Obras">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>
+          <strong>Total Obras</strong>
+          <span>Propostas e Gestão</span>
+        </span>
+      </a>
+
+      <nav class="nav-links" aria-label="Navegação principal">
+        <a href="#recursos">Recursos</a>
+        <a href="#planos">Planos</a>
+        <a href="#duvidas">Dúvidas</a>
+        <a class="btn btn-primary" href="https://wa.me/5567999721591?text=Olá%2C%20quero%20conhecer%20o%20Total%20Obras." target="_blank" rel="noopener">Teste grátis</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">15 dias grátis • sem cartão</span>
+          <h1>Orçamentos profissionais. Gestão mais simples.</h1>
+          <p>
+            Organize clientes, serviços, modelos, propostas, fases e recebimentos em um único sistema desenvolvido para arquitetos, engenheiros e empresas de serviços.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#planos">Conhecer os planos</a>
+            <a class="btn btn-outline" href="https://wa.me/5567999721591?text=Olá%2C%20gostaria%20de%20uma%20demonstração%20do%20Total%20Obras." target="_blank" rel="noopener">Solicitar demonstração</a>
+          </div>
+          <div class="hero-note">Instalação rápida. Seus dados permanecem sob o controle da sua empresa.</div>
+        </div>
+
+        <div class="hero-card" aria-label="Exemplo da interface do sistema">
+          <div class="mock-top">
+            <div class="mock-logo"><span class="mock-dot"></span>Total Obras</div>
+            <div class="status"><i></i> Empresa ativa</div>
+          </div>
+          <div class="mock-box">
+            <strong>Proposta Comercial Nº 0241</strong>
+            <div class="mock-row"><span>Projeto arquitetônico</span><b>R$ 5.600,00</b></div>
+            <div class="mock-row"><span>Projeto estrutural</span><b>R$ 2.800,00</b></div>
+            <div class="mock-row"><span>Projeto elétrico</span><b>R$ 1.680,00</b></div>
+            <div class="mock-total"><span>Total da proposta</span><span>R$ 10.080,00</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="planos">
+      <div class="container">
+        <div class="section-head">
+          <h2>Um plano para cada fase do seu escritório</h2>
+          <p>Comece com o essencial e evolua conforme sua operação cresce.</p>
+        </div>
+
+        <div class="billing-toggle">
+          <div class="toggle-shell" role="group" aria-label="Periodicidade da cobrança">
+            <button class="active" type="button" data-billing="monthly">Mensal</button>
+            <button type="button" data-billing="annual">Anual</button>
+          </div>
+          <span class="save-badge">Economize cerca de 2 meses</span>
+        </div>
+
+        <div class="pricing-grid">
+          <article class="price-card">
+            <span class="plan-label">Para começar</span>
+            <h3>Essencial</h3>
+            <p class="plan-desc">Para profissionais autônomos que precisam organizar propostas e recebimentos.</p>
+            <div class="price-line">
+              <span class="currency">R$</span>
+              <span class="price" data-monthly="49,90" data-annual="41,58">49,90</span>
+              <span class="period">/mês</span>
+            </div>
+            <div class="annual-detail" data-monthly-text="Cobrança mensal." data-annual-text="R$ 499,00 cobrados por ano.">Cobrança mensal.</div>
+
+            <ul class="feature-list">
+              <li><span class="check">✓</span>1 empresa</li>
+              <li><span class="check">✓</span>1 computador ativado</li>
+              <li><span class="check">✓</span>Até 30 orçamentos por mês</li>
+              <li><span class="check">✓</span>Clientes, serviços e modelos</li>
+              <li><span class="check">✓</span>Propostas em PDF</li>
+              <li><span class="check">✓</span>Controle básico de recebimentos</li>
+            </ul>
+
+            <a class="btn btn-dark" href="https://wa.me/5567999721591?text=Olá%2C%20quero%20testar%20o%20plano%20Essencial%20do%20Total%20Obras." target="_blank" rel="noopener">Começar teste grátis</a>
+          </article>
+
+          <article class="price-card featured">
+            <span class="popular">Mais escolhido</span>
+            <span class="plan-label">Melhor custo-benefício</span>
+            <h3>Profissional</h3>
+            <p class="plan-desc">Para escritórios que precisam de recursos completos para vender e administrar.</p>
+            <div class="price-line">
+              <span class="currency">R$</span>
+              <span class="price" data-monthly="99,90" data-annual="83,25">99,90</span>
+              <span class="period">/mês</span>
+            </div>
+            <div class="annual-detail" data-monthly-text="Cobrança mensal." data-annual-text="R$ 999,00 cobrados por ano.">Cobrança mensal.</div>
+
+            <ul class="feature-list">
+              <li><span class="check">✓</span>1 empresa</li>
+              <li><span class="check">✓</span>Até 3 computadores</li>
+              <li><span class="check">✓</span>Orçamentos ilimitados</li>
+              <li><span class="check">✓</span>Modelos e pacotes completos</li>
+              <li><span class="check">✓</span>Fases dos serviços</li>
+              <li><span class="check">✓</span>Financeiro, parcelas e despesas</li>
+              <li><span class="check">✓</span>Relatórios e backup</li>
+              <li><span class="check">✓</span>Suporte prioritário</li>
+            </ul>
+
+            <a class="btn btn-primary" href="https://wa.me/5567999721591?text=Olá%2C%20quero%20testar%20o%20plano%20Profissional%20do%20Total%20Obras." target="_blank" rel="noopener">Começar teste grátis</a>
+          </article>
+
+          <article class="price-card">
+            <span class="plan-label">Para equipes</span>
+            <h3>Escritório</h3>
+            <p class="plan-desc">Para operações maiores, empresas com mais computadores e diferentes marcas.</p>
+            <div class="price-line">
+              <span class="currency">R$</span>
+              <span class="price" data-monthly="169,90" data-annual="141,58">169,90</span>
+              <span class="period">/mês</span>
+            </div>
+            <div class="annual-detail" data-monthly-text="Cobrança mensal." data-annual-text="R$ 1.699,00 cobrados por ano.">Cobrança mensal.</div>
+
+            <ul class="feature-list">
+              <li><span class="check">✓</span>Até 3 empresas</li>
+              <li><span class="check">✓</span>Até 5 computadores</li>
+              <li><span class="check">✓</span>Todos os recursos do Profissional</li>
+              <li><span class="check">✓</span>Relatórios consolidados</li>
+              <li><span class="check">✓</span>Configuração inicial assistida</li>
+              <li><span class="check">✓</span>Atendimento prioritário</li>
+            </ul>
+
+            <a class="btn btn-dark" href="https://wa.me/5567999721591?text=Olá%2C%20quero%20conhecer%20o%20plano%20Escritório%20do%20Total%20Obras." target="_blank" rel="noopener">Falar com atendimento</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="recursos">
+      <div class="container">
+        <div class="section-head">
+          <h2>Compare os recursos</h2>
+          <p>Escolha o plano que atende a sua rotina atual.</p>
+        </div>
+
+        <div class="comparison-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Recurso</th>
+                <th>Essencial</th>
+                <th class="highlight-col">Profissional</th>
+                <th>Escritório</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Empresas cadastradas</td><td>1</td><td class="highlight-col">1</td><td>Até 3</td></tr>
+              <tr><td>Computadores ativados</td><td>1</td><td class="highlight-col">Até 3</td><td>Até 5</td></tr>
+              <tr><td>Orçamentos mensais</td><td>Até 30</td><td class="highlight-col">Ilimitados</td><td>Ilimitados</td></tr>
+              <tr><td>Modelos e pacotes</td><td class="yes">✓</td><td class="highlight-col yes">✓</td><td class="yes">✓</td></tr>
+              <tr><td>Financeiro completo</td><td class="no">—</td><td class="highlight-col yes">✓</td><td class="yes">✓</td></tr>
+              <tr><td>Fases dos serviços</td><td class="no">—</td><td class="highlight-col yes">✓</td><td class="yes">✓</td></tr>
+              <tr><td>Relatórios</td><td>Básicos</td><td class="highlight-col">Completos</td><td>Consolidados</td></tr>
+              <tr><td>Suporte</td><td>Padrão</td><td class="highlight-col">Prioritário</td><td>Prioritário</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="extras">
+      <div class="container">
+        <div class="section-head">
+          <h2>Serviços adicionais</h2>
+          <p>Contrate somente quando precisar de apoio extra.</p>
+        </div>
+
+        <div class="extras-grid">
+          <article class="extra-card">
+            <h3>Implantação assistida</h3>
+            <p>Configuração inicial, dados da empresa, serviços e orientações para começar.</p>
+            <strong>R$ 249,00</strong>
+          </article>
+          <article class="extra-card">
+            <h3>Importação de cadastros</h3>
+            <p>Importação organizada de clientes, serviços e informações existentes.</p>
+            <strong>R$ 150 a R$ 400</strong>
+          </article>
+          <article class="extra-card">
+            <h3>Modelo personalizado</h3>
+            <p>Criação de modelo comercial específico para o serviço da sua empresa.</p>
+            <strong>R$ 100 a R$ 250</strong>
+          </article>
+          <article class="extra-card">
+            <h3>Computador adicional</h3>
+            <p>Ativação extra além do limite incluído no plano contratado.</p>
+            <strong>R$ 19,90/mês</strong>
+          </article>
+          <article class="extra-card">
+            <h3>Empresa adicional</h3>
+            <p>Cadastro e gestão de outra empresa ou marca no mesmo ambiente.</p>
+            <strong>R$ 39,90/mês</strong>
+          </article>
+          <article class="extra-card">
+            <h3>Treinamento remoto</h3>
+            <p>Treinamento individual ou para sua equipe, com duração de uma hora.</p>
+            <strong>R$ 150,00</strong>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <h2>Comece em três etapas</h2>
+          <p>Sem implantação complicada e sem período longo de adaptação.</p>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <div class="step-number">1</div>
+            <h3>Solicite o acesso</h3>
+            <p>Escolha o plano e receba as orientações para instalação do Total Obras.</p>
+          </article>
+          <article class="step">
+            <div class="step-number">2</div>
+            <h3>Configure seu escritório</h3>
+            <p>Cadastre a empresa, serviços, modelos, formas de pagamento e fases.</p>
+          </article>
+          <article class="step">
+            <div class="step-number">3</div>
+            <h3>Gere sua primeira proposta</h3>
+            <p>Monte o orçamento, aplique um modelo e gere o documento profissional.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="duvidas">
+      <div class="container">
+        <div class="section-head">
+          <h2>Dúvidas frequentes</h2>
+          <p>Informações objetivas antes de iniciar seu teste.</p>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>Preciso informar cartão para testar?</summary>
+            <p>Não. O teste gratuito pode ser iniciado sem cartão. A contratação ocorre somente após sua decisão.</p>
+          </details>
+          <details>
+            <summary>Meus dados ficam seguros?</summary>
+            <p>Os dados operacionais permanecem sob controle da sua empresa. Recomendamos manter o recurso de backup configurado e fazer cópias periódicas.</p>
+          </details>
+          <details>
+            <summary>Posso mudar de plano depois?</summary>
+            <p>Sim. O plano pode ser alterado conforme a necessidade de computadores, empresas e recursos.</p>
+          </details>
+          <details>
+            <summary>O Total Obras emite nota fiscal?</summary>
+            <p>O sistema é voltado a propostas, orçamentos e gestão. A emissão fiscal não está incluída nesta versão.</p>
+          </details>
+          <details>
+            <summary>O plano anual tem desconto?</summary>
+            <p>Sim. O pagamento anual equivale aproximadamente a dez mensalidades.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h2>Transforme sua proposta em uma ferramenta de venda.</h2>
+            <p>Teste o Total Obras por 15 dias e organize sua operação.</p>
+          </div>
+          <a class="btn btn-dark" href="https://wa.me/5567999721591?text=Olá%2C%20quero%20iniciar%20meu%20teste%20gratuito%20do%20Total%20Obras." target="_blank" rel="noopener">Iniciar teste gratuito</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <div><strong>Total Obras</strong><br />Propostas e Gestão</div>
+      <div>© <span id="year"></span> Total Obras. Todos os direitos reservados.</div>
+      <div>totalobras.com.br</div>
+    </div>
+  </footer>
+
+  <script>
+    const billingButtons = document.querySelectorAll('[data-billing]');
+    const prices = document.querySelectorAll('.price');
+    const details = document.querySelectorAll('.annual-detail');
+
+    billingButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const mode = button.dataset.billing;
+
+        billingButtons.forEach(item => item.classList.toggle('active', item === button));
+
+        prices.forEach(price => {
+          price.textContent = mode === 'annual' ? price.dataset.annual : price.dataset.monthly;
+        });
+
+        details.forEach(detail => {
+          detail.textContent = mode === 'annual'
+            ? detail.dataset.annualText
+            : detail.dataset.monthlyText;
+        });
+      });
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

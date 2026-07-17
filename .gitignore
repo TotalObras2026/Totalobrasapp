@@ -1,0 +1,15 @@
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+node_modules/
+dist/
+build/
+*.db
+*.sqlite
+*.sqlite3
+*.zip
+.DS_Store
+Thumbs.db
