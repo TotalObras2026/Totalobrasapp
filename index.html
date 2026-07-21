@@ -362,6 +362,7 @@
       aspect-ratio:16/10;
       box-shadow:0 8px 24px rgba(20,36,58,.08);
       transition:.35s cubic-bezier(.34,.69,.8,1);
+      cursor:zoom-in;
     }
 
     .screenshot-card:hover{
@@ -397,6 +398,62 @@
       font-weight:800;
       font-size:1.05rem;
       letter-spacing:-.02em;
+    }
+
+    .lightbox{
+      position:fixed;
+      inset:0;
+      z-index:200;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:40px;
+      background:rgba(10,17,28,.92);
+      backdrop-filter:blur(6px);
+    }
+
+    .lightbox.open{
+      display:flex;
+    }
+
+    .lightbox-inner{
+      position:relative;
+      max-width:min(1200px, 100%);
+      max-height:100%;
+    }
+
+    .lightbox-inner img{
+      display:block;
+      max-width:100%;
+      max-height:calc(100vh - 140px);
+      border-radius:14px;
+      box-shadow:0 30px 80px rgba(0,0,0,.5);
+    }
+
+    .lightbox-caption{
+      margin-top:16px;
+      text-align:center;
+      color:#fff;
+      font-weight:800;
+      font-size:1.05rem;
+    }
+
+    .lightbox-close{
+      position:absolute;
+      top:-18px;
+      right:-18px;
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      background:var(--gold);
+      color:var(--navy);
+      border:none;
+      font-size:1.2rem;
+      font-weight:900;
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+      box-shadow:0 8px 20px rgba(0,0,0,.3);
     }
 
     section{padding:88px 0}
@@ -725,6 +782,8 @@
       .billing-toggle{flex-direction:column}
       .cta-box{padding:30px 24px}
       .footer-row{align-items:flex-start;flex-direction:column}
+      .lightbox{padding:20px}
+      .lightbox-close{top:-46px;right:0}
     }
   </style>
 </head>
@@ -810,28 +869,28 @@
         </div>
 
         <div class="screenshots-grid">
-          <article class="screenshot-card">
+          <article class="screenshot-card" data-caption="Painel Comercial" tabindex="0" role="button" aria-label="Ampliar imagem: Painel Comercial">
             <img src="assets/screenshots/painel-comercial.jpg" alt="Painel Comercial - Dashboard com métricas de propostas, conversão de vendas e orçamentos" />
             <div class="screenshot-overlay">
               <div class="screenshot-label">Painel Comercial</div>
             </div>
           </article>
 
-          <article class="screenshot-card">
+          <article class="screenshot-card" data-caption="Pacotes &amp; Personalização" tabindex="0" role="button" aria-label="Ampliar imagem: Pacotes e Personalização">
             <img src="assets/screenshots/pacotes-personalizacao.jpg" alt="Pacotes de Personalização - Configure categorias de serviços e modelos" />
             <div class="screenshot-overlay">
               <div class="screenshot-label">Pacotes & Personalização</div>
             </div>
           </article>
 
-          <article class="screenshot-card">
+          <article class="screenshot-card" data-caption="Módulo Financeiro" tabindex="0" role="button" aria-label="Ampliar imagem: Módulo Financeiro">
             <img src="assets/screenshots/financeiro.jpg" alt="Módulo Financeiro - Controle de recebimentos, despesas e fluxo de caixa" />
             <div class="screenshot-overlay">
               <div class="screenshot-label">Módulo Financeiro</div>
             </div>
           </article>
 
-          <article class="screenshot-card">
+          <article class="screenshot-card" data-caption="Categorias &amp; Serviços" tabindex="0" role="button" aria-label="Ampliar imagem: Categorias e Serviços">
             <img src="assets/screenshots/categorias-servicos.jpg" alt="Categorias de Serviços - Organize e gerencie seus serviços" />
             <div class="screenshot-overlay">
               <div class="screenshot-label">Categorias & Serviços</div>
@@ -1085,6 +1144,14 @@
     </div>
   </footer>
 
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagem ampliada">
+    <div class="lightbox-inner">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Fechar imagem ampliada">✕</button>
+      <img id="lightboxImg" src="" alt="" />
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+  </div>
+
   <script>
     const billingButtons = document.querySelectorAll('[data-billing]');
     const prices = document.querySelectorAll('.price');
@@ -1109,6 +1176,45 @@
     });
 
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const screenshotCards = document.querySelectorAll('.screenshot-card');
+
+    function openLightbox(card){
+      const img = card.querySelector('img');
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightboxCaption.textContent = card.dataset.caption || '';
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(){
+      lightbox.classList.remove('open');
+      lightboxImg.src = '';
+      document.body.style.overflow = '';
+    }
+
+    screenshotCards.forEach(card => {
+      card.addEventListener('click', () => openLightbox(card));
+      card.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          openLightbox(card);
+        }
+      });
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if(e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+    });
   </script>
 </body>
 </html>
