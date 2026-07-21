@@ -3,655 +3,1045 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Total Obras: sistema de propostas, orçamentos, modelos, pacotes e gestão financeira para arquitetos, engenheiros e empresas de serviços." />
-  <meta name="theme-color" content="#14243a" />
-  <title>Total Obras | Planos e preços</title>
+  <meta name="description" content="Total Obras: sistema para propostas, orcamentos, gestao comercial, financeiro e organizacao de servicos para arquitetura, engenharia e empresas tecnicas." />
+  <meta name="theme-color" content="#122033" />
+  <title>Total Obras | Sistema de propostas e gestao</title>
   <style>
-    :root{
-      --navy:#14243a;
-      --navy-2:#1c3150;
-      --gold:#ddb33b;
-      --gold-2:#f0c950;
-      --cream:#f7f4ed;
-      --paper:#ffffff;
-      --text:#182235;
-      --muted:#677287;
-      --line:#e6e0d4;
-      --green:#1fbf82;
-      --shadow:0 18px 45px rgba(20,36,58,.12);
-      --radius:22px;
+    :root {
+      --navy: #122033;
+      --navy-2: #1b2e47;
+      --ink: #172235;
+      --muted: #657082;
+      --line: #e2ded5;
+      --paper: #fffefa;
+      --soft: #f5f1e9;
+      --gold: #d8aa2e;
+      --gold-2: #f1c84b;
+      --green: #1da875;
+      --blue: #2578d6;
+      --red: #dc3f47;
+      --shadow: 0 18px 44px rgba(18, 32, 51, .14);
+      --radius: 8px;
     }
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color:var(--text);
-      background:var(--cream);
-      line-height:1.55;
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--soft);
+      line-height: 1.55;
     }
 
-    a{color:inherit;text-decoration:none}
-    button{font:inherit}
-    .container{width:min(1160px, calc(100% - 36px)); margin-inline:auto}
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
 
-    .site-header{
-      position:sticky;
-      top:0;
-      z-index:50;
-      background:rgba(20,36,58,.96);
-      backdrop-filter:blur(12px);
-      color:#fff;
-      border-bottom:1px solid rgba(255,255,255,.08);
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin-inline: auto;
     }
 
-    .nav{
-      min-height:76px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:24px;
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      color: #fff;
+      background: rgba(18, 32, 51, .96);
+      border-bottom: 1px solid rgba(255, 255, 255, .09);
+      backdrop-filter: blur(14px);
     }
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      font-weight:800;
-      letter-spacing:-.02em;
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
     }
 
-    .brand-mark{
-      width:10px;
-      height:38px;
-      border-radius:8px;
-      background:linear-gradient(180deg,var(--gold-2),var(--gold));
-      box-shadow:0 0 0 4px rgba(221,179,59,.08);
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
     }
 
-    .brand strong{display:block;font-size:1.18rem}
-    .brand span{display:block;color:#b8c3d2;font-size:.78rem;font-weight:600}
-
-    .nav-links{
-      display:flex;
-      align-items:center;
-      gap:24px;
-      font-size:.95rem;
-      font-weight:700;
+    .brand-mark {
+      width: 9px;
+      height: 38px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--gold-2), var(--gold));
+      box-shadow: 0 0 0 5px rgba(216, 170, 46, .12);
     }
 
-    .nav-links a{color:#dce4ee}
-    .nav-links a:hover{color:#fff}
+    .brand-title { display: block; font-size: 1.08rem; letter-spacing: -.02em; }
+    .brand-subtitle { display: block; color: #b9c5d3; font-size: .76rem; font-weight: 700; }
 
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:9px;
-      min-height:48px;
-      padding:0 20px;
-      border-radius:12px;
-      border:1px solid transparent;
-      font-weight:800;
-      cursor:pointer;
-      transition:.2s ease;
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: #d9e2ee;
+      font-size: .94rem;
+      font-weight: 800;
     }
 
-    .btn:hover{transform:translateY(-1px)}
-    .btn-primary{
-      background:linear-gradient(135deg,var(--gold-2),var(--gold));
-      color:var(--navy);
-      box-shadow:0 10px 28px rgba(221,179,59,.25);
-    }
-    .btn-outline{
-      color:#fff;
-      border-color:rgba(255,255,255,.2);
-      background:rgba(255,255,255,.04);
-    }
-    .btn-dark{
-      background:var(--navy);
-      color:#fff;
+    .nav-links a:hover { color: #fff; }
+    .menu-button { display: none; }
+
+    .btn {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0 18px;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
     }
 
-    .hero{
-      position:relative;
-      overflow:hidden;
-      min-height:720px;
-      display:flex;
-      align-items:center;
+    .whatsapp-icon {
+      width: 1.12em;
+      height: 1.12em;
+      flex: 0 0 auto;
+      display: block;
+      fill: currentColor;
+    }
+
+    .whatsapp-icon.brand-green {
+      color: #25d366;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(18, 32, 51, .16);
+    }
+
+    .btn-primary {
+      color: var(--navy);
+      background: linear-gradient(135deg, var(--gold-2), var(--gold));
+      box-shadow: 0 10px 24px rgba(216, 170, 46, .24);
+    }
+
+    .btn-dark {
+      color: #fff;
+      background: var(--navy);
+    }
+
+    .btn-light {
+      color: #fff;
+      border-color: rgba(255, 255, 255, .24);
+      background: rgba(255, 255, 255, .07);
+    }
+
+    .hero {
+      position: relative;
+      min-height: clamp(570px, calc(100svh - 118px), 760px);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      color: #fff;
       background:
-        linear-gradient(90deg, rgba(20,36,58,.98) 0%, rgba(20,36,58,.92) 30%, rgba(20,36,58,.55) 52%, rgba(20,36,58,.15) 70%, rgba(20,36,58,0) 85%),
-        url('assets/mockup-notebook.jpg');
-      background-size: cover;
-      background-position: right center;
+        linear-gradient(90deg, rgba(18, 32, 51, .98) 0%, rgba(18, 32, 51, .94) 32%, rgba(18, 32, 51, .63) 58%, rgba(18, 32, 51, .1) 82%),
+        url("assets/mockup-notebook.jpg");
       background-repeat: no-repeat;
-      color:#fff;
-      padding:92px 0 118px;
+      background-size: cover, min(68vw, 1120px) auto;
+      background-position: center, right bottom;
+      padding: 72px 0 86px;
     }
 
-    .hero:after{
-      content:"";
-      position:absolute;
-      inset:auto -8% -80px -8%;
-      height:160px;
-      background:var(--cream);
-      border-radius:50% 50% 0 0;
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--green), var(--blue));
     }
 
-    .hero-grid{
-      position:relative;
-      z-index:1;
-      width:100%;
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
     }
 
-    .hero-text{
-      max-width:620px;
-      padding-left:clamp(0px, 4vw, 56px);
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 11px;
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 999px;
+      color: #f6d775;
+      background: rgba(255, 255, 255, .07);
+      font-size: .78rem;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
     }
 
-    .eyebrow{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 12px;
-      border-radius:999px;
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.12);
-      color:#f4d97e;
-      font-size:.82rem;
-      font-weight:800;
-      text-transform:uppercase;
-      letter-spacing:.08em;
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      max-width: 720px;
+      margin: 18px 0 16px;
+      font-size: clamp(2.8rem, 5.5vw, 4.8rem);
+      line-height: .93;
+      letter-spacing: -.055em;
     }
 
-    h1{
-      margin:20px 0 18px;
-      font-size:clamp(2.4rem,6vw,4.8rem);
-      line-height:.98;
-      letter-spacing:-.055em;
-      max-width:780px;
+    .hero-copy {
+      max-width: 620px;
+      margin-bottom: 28px;
+      color: #d4deea;
+      font-size: clamp(1.02rem, 1.8vw, 1.2rem);
     }
 
-    .hero p{
-      margin:0;
-      max-width:680px;
-      color:#cad4e1;
-      font-size:1.1rem;
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
     }
 
-    .hero-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      margin-top:30px;
+    .hero-proof {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      max-width: 610px;
+      color: #c5cfdd;
     }
 
-    .hero-note{
-      margin-top:18px;
-      color:#aebacc;
-      font-size:.88rem;
+    .proof-item {
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .06);
     }
 
-    .screenshots-section{
-      background:#fff;
-      padding:100px 0;
+    .proof-item strong {
+      display: block;
+      color: #fff;
+      font-size: 1.3rem;
+      line-height: 1.05;
     }
 
-    .screenshots-head{
-      text-align:center;
-      margin-bottom:60px;
+    .proof-item span {
+      display: block;
+      margin-top: 4px;
+      font-size: .82rem;
     }
 
-    .screenshots-head h3{
-      margin:0 0 10px;
-      font-size:clamp(1.6rem,4vw,2.4rem);
-      letter-spacing:-.03em;
-      line-height:1.1;
+    section { padding: 86px 0; }
+
+    .section-head {
+      max-width: 760px;
+      margin: 0 auto 38px;
+      text-align: center;
     }
 
-    .screenshots-head p{
-      margin:0;
-      color:var(--muted);
-      font-size:1rem;
-      max-width:600px;
-      margin-left:auto;
-      margin-right:auto;
+    .section-kicker {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: #8a6812;
+      font-size: .78rem;
+      font-weight: 950;
+      letter-spacing: .1em;
+      text-transform: uppercase;
     }
 
-    .screenshots-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:28px;
+    .section-head h2 {
+      margin-bottom: 12px;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      line-height: 1.05;
+      letter-spacing: -.045em;
     }
 
-    .screenshot-card{
-      position:relative;
-      background:#f9f7f1;
-      border:1px solid var(--line);
-      border-radius:18px;
-      overflow:hidden;
-      aspect-ratio:16/10;
-      box-shadow:0 8px 24px rgba(20,36,58,.08);
-      transition:.35s cubic-bezier(.34,.69,.8,1);
-      cursor:zoom-in;
+    .section-head p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 1.02rem;
     }
 
-    .screenshot-card:hover{
-      box-shadow:0 16px 48px rgba(20,36,58,.16);
-      transform:translateY(-6px);
-      border-color:var(--gold);
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
     }
 
-    .screenshot-card img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
+    .feature-card,
+    .benefit-card,
+    .plan-card,
+    .step,
+    details {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 8px 24px rgba(18, 32, 51, .07);
     }
 
-    .screenshot-overlay{
-      position:absolute;
-      inset:0;
-      background:linear-gradient(180deg, rgba(20,36,58,0) 0%, rgba(20,36,58,.7) 100%);
-      display:flex;
-      align-items:flex-end;
-      padding:28px 24px;
-      opacity:0;
-      transition:.35s ease;
+    .feature-card {
+      min-height: 230px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
-    .screenshot-card:hover .screenshot-overlay{
-      opacity:1;
+    .icon-box {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: var(--radius);
+      color: var(--navy);
+      background: #f1df9e;
+      font-weight: 950;
     }
 
-    .screenshot-label{
-      color:#fff;
-      font-weight:800;
-      font-size:1.05rem;
-      letter-spacing:-.02em;
+    .feature-card h3,
+    .benefit-card h3,
+    .step h3,
+    .plan-card h3 {
+      margin-bottom: 8px;
+      color: var(--navy);
+      letter-spacing: -.025em;
     }
 
-    .lightbox{
-      position:fixed;
-      inset:0;
-      z-index:200;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:40px;
-      background:rgba(10,17,28,.92);
-      backdrop-filter:blur(6px);
+    .feature-card p,
+    .benefit-card p,
+    .step p,
+    .plan-card p {
+      margin-bottom: 0;
+      color: var(--muted);
     }
 
-    .lightbox.open{
-      display:flex;
+    .showcase {
+      background: #fff;
     }
 
-    .lightbox-inner{
-      position:relative;
-      max-width:min(1200px, 100%);
-      max-height:100%;
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
     }
 
-    .lightbox-inner img{
-      display:block;
-      max-width:100%;
-      max-height:calc(100vh - 140px);
-      border-radius:14px;
-      box-shadow:0 30px 80px rgba(0,0,0,.5);
+    .screenshot {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ece8df;
+      box-shadow: var(--shadow);
+      cursor: zoom-in;
     }
 
-    .lightbox-caption{
-      margin-top:16px;
-      text-align:center;
-      color:#fff;
-      font-weight:800;
-      font-size:1.05rem;
+    .screenshot:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 4px;
     }
 
-    .lightbox-close{
-      position:absolute;
-      top:-18px;
-      right:-18px;
-      width:40px;
-      height:40px;
-      border-radius:50%;
-      background:var(--gold);
-      color:var(--navy);
-      border:none;
-      font-size:1.2rem;
-      font-weight:900;
-      cursor:pointer;
-      display:grid;
-      place-items:center;
-      box-shadow:0 8px 20px rgba(0,0,0,.3);
+    .screenshot img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      transition: transform .35s ease;
     }
 
-    section{padding:88px 0}
-    .section-head{text-align:center;max-width:760px;margin:0 auto 38px}
-    .section-head h2{
-      margin:0 0 12px;
-      font-size:clamp(2rem,4vw,3rem);
-      letter-spacing:-.04em;
-      line-height:1.05;
-    }
-    .section-head p{margin:0;color:var(--muted)}
-
-    .billing-toggle{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      margin:28px auto 42px;
+    .screenshot:hover img {
+      transform: scale(1.025);
     }
 
-    .toggle-shell{
-      display:flex;
-      background:#e9e3d7;
-      border-radius:999px;
-      padding:5px;
-      gap:4px;
+    .screenshot figcaption {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: var(--radius);
+      color: #fff;
+      background: rgba(18, 32, 51, .86);
+      backdrop-filter: blur(8px);
+      font-weight: 900;
     }
 
-    .toggle-shell button{
-      border:0;
-      background:transparent;
-      color:var(--muted);
-      border-radius:999px;
-      padding:10px 18px;
-      font-weight:800;
-      cursor:pointer;
+    .screenshot figcaption span {
+      color: #f6d775;
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
     }
 
-    .toggle-shell button.active{
-      background:var(--paper);
-      color:var(--navy);
-      box-shadow:0 5px 14px rgba(20,36,58,.1);
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: min(5vw, 48px);
+      background: rgba(8, 15, 25, .92);
+      backdrop-filter: blur(8px);
     }
 
-    .save-badge{
-      display:inline-flex;
-      align-items:center;
-      border-radius:999px;
-      padding:7px 11px;
-      background:#e9f8f1;
-      color:#157a57;
-      font-size:.78rem;
-      font-weight:800;
+    .lightbox.open {
+      display: flex;
     }
 
-    .pricing-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:22px;
-      align-items:stretch;
+    .lightbox-card {
+      position: relative;
+      width: min(1320px, 100%);
+      display: grid;
+      gap: 12px;
     }
 
-    .price-card{
-      position:relative;
-      background:var(--paper);
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      padding:30px;
-      box-shadow:0 8px 28px rgba(20,36,58,.06);
-      display:flex;
-      flex-direction:column;
+    .lightbox img {
+      width: 100%;
+      max-height: calc(100svh - 138px);
+      object-fit: contain;
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: 0 28px 80px rgba(0, 0, 0, .46);
     }
 
-    .price-card.featured{
-      border:2px solid var(--gold);
-      transform:translateY(-8px);
-      box-shadow:var(--shadow);
+    .lightbox-caption {
+      color: #fff;
+      text-align: center;
+      font-weight: 900;
     }
 
-    .popular{
-      position:absolute;
-      top:16px;
-      right:16px;
-      background:var(--gold);
-      color:var(--navy);
-      font-weight:900;
-      font-size:.72rem;
-      text-transform:uppercase;
-      letter-spacing:.06em;
-      padding:7px 10px;
-      border-radius:999px;
+    .lightbox-close {
+      position: absolute;
+      top: -16px;
+      right: -16px;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 999px;
+      color: var(--navy);
+      background: linear-gradient(135deg, var(--gold-2), var(--gold));
+      box-shadow: 0 12px 28px rgba(0, 0, 0, .28);
+      cursor: pointer;
+      font-size: 1.4rem;
+      line-height: 1;
+      font-weight: 950;
     }
 
-    .plan-label{
-      color:var(--muted);
-      font-size:.85rem;
-      font-weight:800;
-      text-transform:uppercase;
-      letter-spacing:.08em;
+    .benefits {
+      background:
+        linear-gradient(180deg, rgba(18, 32, 51, .04), rgba(18, 32, 51, 0)),
+        var(--soft);
     }
 
-    .price-card h3{
-      margin:7px 0 8px;
-      font-size:1.6rem;
-      letter-spacing:-.03em;
+    .benefit-layout {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 28px;
+      align-items: start;
     }
 
-    .plan-desc{
-      color:var(--muted);
-      min-height:52px;
-      margin:0 0 24px;
+    .benefit-panel {
+      position: sticky;
+      top: 96px;
+      color: #fff;
+      border-radius: var(--radius);
+      background:
+        linear-gradient(145deg, rgba(18, 32, 51, .97), rgba(27, 46, 71, .93)),
+        url("assets/screenshots/painel-comercial.jpg");
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+      padding: 34px;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      box-shadow: var(--shadow);
     }
 
-    .price-line{
-      display:flex;
-      align-items:flex-end;
-      gap:6px;
-      margin-bottom:4px;
+    .benefit-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(18, 32, 51, .15), rgba(18, 32, 51, .94));
     }
 
-    .currency{font-weight:900;margin-bottom:8px}
-    .price{
-      font-size:3.2rem;
-      line-height:1;
-      font-weight:950;
-      letter-spacing:-.06em;
-    }
-    .period{color:var(--muted);margin-bottom:6px}
-    .annual-detail{
-      min-height:26px;
-      color:var(--muted);
-      font-size:.86rem;
-      margin-bottom:22px;
+    .benefit-panel > * {
+      position: relative;
+      z-index: 1;
     }
 
-    .feature-list{
-      list-style:none;
-      padding:0;
-      margin:22px 0 28px;
-      display:grid;
-      gap:12px;
-    }
-    .feature-list li{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      color:#39465c;
-    }
-    .check{
-      flex:0 0 22px;
-      width:22px;
-      height:22px;
-      border-radius:50%;
-      display:grid;
-      place-items:center;
-      background:#edf8f4;
-      color:#16845f;
-      font-size:.78rem;
-      font-weight:900;
+    .benefit-panel h2 {
+      margin-bottom: 12px;
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      line-height: 1.05;
+      letter-spacing: -.04em;
     }
 
-    .price-card .btn{margin-top:auto;width:100%}
-
-    .comparison-wrap{
-      overflow:auto;
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      box-shadow:0 10px 32px rgba(20,36,58,.06);
+    .benefit-panel p {
+      margin-bottom: 24px;
+      color: #d4deea;
     }
 
-    table{
-      width:100%;
-      min-width:760px;
-      border-collapse:collapse;
-    }
-    th,td{
-      padding:16px 18px;
-      text-align:center;
-      border-bottom:1px solid #ece8df;
-    }
-    th:first-child,td:first-child{text-align:left}
-    thead th{
-      background:#f8f6f0;
-      color:var(--navy);
-      font-size:.9rem;
-    }
-    tbody tr:last-child td{border-bottom:0}
-    td{color:#4d596d}
-    .yes{color:#16845f;font-weight:900}
-    .no{color:#a7aebb}
-    .highlight-col{background:#fffaf0}
-
-    .extras{
-      background:var(--navy);
-      color:#fff;
-    }
-    .extras .section-head p{color:#b9c5d3}
-
-    .extras-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:18px;
+    .benefit-list {
+      display: grid;
+      gap: 14px;
     }
 
-    .extra-card{
-      padding:24px;
-      border-radius:18px;
-      background:rgba(255,255,255,.07);
-      border:1px solid rgba(255,255,255,.1);
-    }
-    .extra-card h3{margin:0 0 10px;font-size:1.05rem}
-    .extra-card p{margin:0;color:#b9c5d3}
-    .extra-card strong{
-      display:block;
-      margin-top:18px;
-      color:#f3d878;
-      font-size:1.15rem;
+    .benefit-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      padding: 20px;
     }
 
-    .steps{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:22px;
-    }
-    .step{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:26px;
-    }
-    .step-number{
-      width:42px;height:42px;border-radius:12px;
-      display:grid;place-items:center;
-      background:var(--navy);
-      color:var(--gold-2);
-      font-weight:950;
-      margin-bottom:18px;
-    }
-    .step h3{margin:0 0 8px}
-    .step p{margin:0;color:var(--muted)}
-
-    .faq{
-      display:grid;
-      gap:12px;
-      max-width:860px;
-      margin:0 auto;
+    .check {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--green);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 12.5l4.2 4.2L19 7' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 17px 17px;
     }
 
-    details{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:18px 20px;
+    .pricing {
+      background: #fff;
     }
-    summary{
-      cursor:pointer;
-      font-weight:850;
-      color:var(--navy);
-    }
-    details p{margin:12px 0 0;color:var(--muted)}
 
-    .cta{
-      padding-top:30px;
-      padding-bottom:92px;
+    .pricing-note {
+      max-width: 720px;
+      margin: -14px auto 34px;
+      color: var(--muted);
+      text-align: center;
+      font-size: .95rem;
     }
-    .cta-box{
-      background:linear-gradient(135deg,var(--gold-2),var(--gold));
-      border-radius:28px;
-      padding:44px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:30px;
-      box-shadow:0 18px 50px rgba(221,179,59,.2);
-    }
-    .cta-box h2{
-      margin:0 0 8px;
-      color:var(--navy);
-      font-size:clamp(1.8rem,4vw,2.8rem);
-      letter-spacing:-.04em;
-    }
-    .cta-box p{margin:0;color:#4a442f}
 
-    footer{
-      background:#0f1c2e;
-      color:#aeb9c8;
-      padding:36px 0;
+    .billing-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: -12px auto 34px;
     }
-    .footer-row{
-      display:flex;
-      justify-content:space-between;
-      gap:24px;
-      align-items:center;
-      flex-wrap:wrap;
-    }
-    .footer-row strong{color:#fff}
 
-    @media (max-width: 920px){
-      .nav-links a:not(.btn){display:none}
-      .hero{
-        background:
-          linear-gradient(180deg, rgba(20,36,58,.97) 0%, rgba(20,36,58,.94) 55%, rgba(20,36,58,.85) 100%),
-          url('assets/mockup-notebook.jpg');
-        background-size:cover;
-        background-position:center 30%;
+    .toggle-shell {
+      display: inline-grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--soft);
+    }
+
+    .toggle-shell button {
+      min-width: 96px;
+      padding: 9px 16px;
+      border: 0;
+      border-radius: 999px;
+      color: var(--muted);
+      background: transparent;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .toggle-shell button.active {
+      color: #fff;
+      background: var(--navy);
+      box-shadow: 0 6px 16px rgba(18, 32, 51, .16);
+    }
+
+    .save-badge {
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: #72520b;
+      background: #fff3c2;
+      font-size: .78rem;
+      font-weight: 900;
+    }
+
+    .plans {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .plan-card {
+      position: relative;
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .plan-card.featured {
+      border-color: var(--gold);
+      box-shadow: 0 18px 50px rgba(216, 170, 46, .18);
+    }
+
+    .tag {
+      align-self: flex-start;
+      margin-bottom: 16px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: #72520b;
+      background: #fff3c2;
+      font-size: .75rem;
+      font-weight: 950;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .featured .tag {
+      color: var(--navy);
+      background: linear-gradient(135deg, var(--gold-2), var(--gold));
+    }
+
+    .price {
+      display: flex;
+      align-items: flex-end;
+      gap: 5px;
+      margin: 22px 0 4px;
+      color: var(--navy);
+    }
+
+    .price strong {
+      font-size: clamp(2.4rem, 5vw, 3.4rem);
+      line-height: .94;
+      letter-spacing: -.06em;
+    }
+
+    .price small {
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .plan-detail {
+      min-height: 42px;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .plan-list {
+      list-style: none;
+      padding: 0;
+      margin: 22px 0 28px;
+      display: grid;
+      gap: 11px;
+    }
+
+    .plan-list li {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 9px;
+      color: #3e4a5c;
+    }
+
+    .plan-list li::before {
+      content: "";
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--green);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 12.5l4.2 4.2L19 7' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 14px 14px;
+    }
+
+    .plan-card .btn {
+      width: 100%;
+      margin-top: auto;
+    }
+
+    .payment-note {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: .82rem;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    .payment-link-pending {
+      border-color: var(--line) !important;
+      background: var(--navy) !important;
+      color: #fff !important;
+    }
+
+    .comparison {
+      margin-top: 34px;
+      padding-top: 8px;
+    }
+
+    .comparison h3 {
+      margin-bottom: 16px;
+      color: var(--navy);
+      text-align: center;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+    }
+
+    .comparison-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 12px 32px rgba(18, 32, 51, .08);
+    }
+
+    .comparison table {
+      width: 100%;
+      min-width: 720px;
+      border-collapse: collapse;
+    }
+
+    .comparison th,
+    .comparison td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      text-align: center;
+    }
+
+    .comparison th:first-child,
+    .comparison td:first-child {
+      text-align: left;
+      font-weight: 800;
+    }
+
+    .comparison th {
+      color: #fff;
+      background: var(--navy);
+    }
+
+    .comparison .highlight-col {
+      background: #fff9df;
+    }
+
+    .comparison th.highlight-col {
+      color: var(--navy);
+      background: linear-gradient(135deg, var(--gold-2), var(--gold));
+    }
+
+    .comparison .yes {
+      color: var(--green);
+      font-weight: 950;
+    }
+
+    .comparison .no {
+      color: #9aa3b0;
+    }
+
+    .addons {
+      margin-top: 28px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbf8f0;
+    }
+
+    .addons h3 {
+      margin-bottom: 14px;
+      color: var(--navy);
+    }
+
+    .addons-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .addon {
+      min-height: 86px;
+      padding: 14px;
+      border: 1px solid #e9dfc8;
+      border-radius: var(--radius);
+      background: #fffefa;
+    }
+
+    .addon strong {
+      display: block;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .addon span {
+      color: #81620f;
+      font-weight: 900;
+    }
+
+    .process {
+      background: var(--soft);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .step {
+      padding: 24px;
+    }
+
+    .step-number {
+      width: 42px;
+      height: 42px;
+      margin-bottom: 18px;
+      display: grid;
+      place-items: center;
+      border-radius: var(--radius);
+      color: var(--navy);
+      background: linear-gradient(135deg, var(--gold-2), var(--gold));
+      font-weight: 950;
+    }
+
+    .faq {
+      background: #fff;
+    }
+
+    .faq-list {
+      max-width: 880px;
+      margin-inline: auto;
+      display: grid;
+      gap: 12px;
+    }
+
+    details {
+      padding: 18px 20px;
+    }
+
+    summary {
+      color: var(--navy);
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    details p {
+      margin: 12px 0 0;
+      color: var(--muted);
+    }
+
+    .contact {
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(18, 32, 51, .97), rgba(18, 32, 51, .84)),
+        url("assets/mockup-notebook.jpg");
+      background-position: center;
+      background-size: cover;
+      padding-bottom: 96px;
+    }
+
+    .contact-box {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 26px;
+      align-items: center;
+    }
+
+    .contact h2 {
+      margin-bottom: 12px;
+      font-size: clamp(2rem, 4vw, 3.35rem);
+      line-height: 1.05;
+      letter-spacing: -.045em;
+    }
+
+    .contact p {
+      max-width: 720px;
+      margin-bottom: 0;
+      color: #d4deea;
+      font-size: 1.05rem;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      z-index: 30;
+      right: 18px;
+      bottom: 18px;
+      min-height: 52px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 18px;
+      border-radius: 999px;
+      color: #fff;
+      background: #1da875;
+      box-shadow: 0 18px 34px rgba(29, 168, 117, .32);
+      font-weight: 950;
+    }
+
+    .whatsapp-float .whatsapp-icon {
+      width: 28px;
+      height: 28px;
+      color: #fff;
+    }
+
+    footer {
+      padding: 34px 0;
+      color: #b7c2d0;
+      background: #0e1929;
+    }
+
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-row strong {
+      color: #fff;
+    }
+
+    @media (max-width: 980px) {
+      .nav {
+        min-height: 66px;
       }
-      .hero-text{max-width:100%}
-      .pricing-grid,.extras-grid,.steps{grid-template-columns:1fr}
-      .screenshots-grid{grid-template-columns:1fr}
-      .price-card.featured{transform:none}
-      .cta-box{flex-direction:column;align-items:flex-start}
+
+      .menu-button {
+        display: inline-flex;
+        min-height: 40px;
+        padding: 0 12px;
+        border: 1px solid rgba(255, 255, 255, .2);
+        border-radius: var(--radius);
+        color: #fff;
+        background: rgba(255, 255, 255, .06);
+        font-weight: 900;
+      }
+
+      .nav-links {
+        position: absolute;
+        inset: 66px 0 auto;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 10px 16px 16px;
+        background: var(--navy);
+        border-bottom: 1px solid rgba(255, 255, 255, .12);
+      }
+
+      .nav-links.open { display: flex; }
+
+      .nav-links a {
+        padding: 13px 0;
+      }
+
+      .nav-links .btn {
+        margin-top: 8px;
+      }
+
+      .hero {
+        min-height: auto;
+        background:
+          linear-gradient(180deg, rgba(18, 32, 51, .98), rgba(18, 32, 51, .9)),
+          url("assets/mockup-notebook.jpg");
+        background-position: center top;
+        background-size: cover, min(118vw, 860px) auto;
+        padding: 62px 0 68px;
+      }
+
+      .feature-grid,
+      .plans,
+      .steps,
+      .addons-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .benefit-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .benefit-panel {
+        position: relative;
+        top: auto;
+        min-height: 340px;
+      }
     }
 
-    @media (max-width: 620px){
-      .container{width:min(100% - 24px,1160px)}
-      .hero{padding:68px 0 98px;min-height:auto}
-      .nav-links .btn{padding:0 14px;min-height:42px}
-      .hero-actions{flex-direction:column}
-      .hero-actions .btn{width:100%}
-      .price-card{padding:24px}
-      .billing-toggle{flex-direction:column}
-      .cta-box{padding:30px 24px}
-      .footer-row{align-items:flex-start;flex-direction:column}
-      .lightbox{padding:20px}
-      .lightbox-close{top:-46px;right:0}
+    @media (max-width: 720px) {
+      section {
+        padding: 62px 0;
+      }
+
+      h1 {
+        font-size: clamp(2.75rem, 17vw, 4.2rem);
+      }
+
+      .hero-proof,
+      .feature-grid,
+      .showcase-grid,
+      .plans,
+      .steps,
+      .addons-grid,
+      .contact-box {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions .btn,
+      .contact .btn {
+        width: 100%;
+      }
+
+      .billing-toggle {
+        flex-direction: column;
+      }
+
+      .proof-item {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .proof-item span {
+        margin-top: 0;
+      }
+
+      .screenshot figcaption {
+        position: static;
+        border-radius: 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .benefit-card {
+        grid-template-columns: 1fr;
+      }
+
+      .whatsapp-float {
+        left: 14px;
+        right: 14px;
+        justify-content: center;
+      }
+
+      .lightbox {
+        padding: 16px;
+      }
+
+      .lightbox-close {
+        top: -52px;
+        right: 0;
+      }
+
+      footer {
+        padding-bottom: 84px;
+      }
     }
   </style>
 </head>
@@ -661,165 +1051,62 @@
       <a class="brand" href="#inicio" aria-label="Total Obras">
         <span class="brand-mark" aria-hidden="true"></span>
         <span>
-          <strong>Total Obras</strong>
-          <span>Propostas e Gestão</span>
+          <span class="brand-title">Total Obras</span>
+          <span class="brand-subtitle">Propostas e Gest&atilde;o</span>
         </span>
       </a>
 
-      <nav class="nav-links" aria-label="Navegação principal">
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+
+      <nav class="nav-links" id="menu" aria-label="Menu principal">
         <a href="#recursos">Recursos</a>
+        <a href="#beneficios">Benef&iacute;cios</a>
         <a href="#planos">Planos</a>
-        <a href="#duvidas">Dúvidas</a>
-        <a class="btn btn-primary" href="https://wa.me/5567999721591?text=Olá%2C%20quero%20conhecer%20o%20Total%20Obras." target="_blank" rel="noopener">Teste grátis</a>
+        <a href="#contato">Contato</a>
+        <a class="btn btn-primary" href="https://wa.me/5567999721591?text=Ol%C3%A1%2C%20quero%20conhecer%20o%20Total%20Obras." target="_blank" rel="noopener">
+          <svg class="whatsapp-icon brand-green" viewBox="0 0 448 512" aria-hidden="true" focusable="false">
+            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32 101.5 32 1.9 131.6 1.9 254c0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1C346.2 476.1 448 376.5 448 254.1c0-59.3-25.2-115-67.1-157zM223.9 438.7c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
+          </svg>
+          Chamar no WhatsApp
+        </a>
       </nav>
     </div>
   </header>
 
   <main>
     <section class="hero" id="inicio">
-      <div class="container hero-grid">
-        <div class="hero-text">
-          <span class="eyebrow">15 dias grátis • sem cartão</span>
-          <h1>Orçamentos profissionais. Gestão mais simples.</h1>
-          <p>
-            Organize clientes, serviços, modelos, propostas, fases e recebimentos em um único sistema desenvolvido para arquitetos, engenheiros e empresas de serviços.
+      <div class="container">
+        <div class="hero-content">
+          <span class="eyebrow">15 dias gr&aacute;tis &bull; sem cart&atilde;o</span>
+          <h1>Or&ccedil;amentos profissionais. Gest&atilde;o mais simples.</h1>
+          <p class="hero-copy">
+            Crie propostas profissionais, organize or&ccedil;amentos, acompanhe negocia&ccedil;&otilde;es, controle recebimentos e mantenha seus servi&ccedil;os padronizados em um s&oacute; lugar.
           </p>
 
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#planos">Conhecer os planos</a>
-            <a class="btn btn-outline" href="https://wa.me/5567999721591?text=Olá%2C%20gostaria%20de%20uma%20demonstração%20do%20Total%20Obras." target="_blank" rel="noopener">Solicitar demonstração</a>
+            <a class="btn btn-primary" href="https://wa.me/5567999721591?text=Ol%C3%A1%2C%20quero%20iniciar%20meu%20teste%20gratuito%20do%20Total%20Obras." target="_blank" rel="noopener">
+              <svg class="whatsapp-icon brand-green" viewBox="0 0 448 512" aria-hidden="true" focusable="false">
+                <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32 101.5 32 1.9 131.6 1.9 254c0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1C346.2 476.1 448 376.5 448 254.1c0-59.3-25.2-115-67.1-157zM223.9 438.7c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
+              </svg>
+              Come&ccedil;ar teste gr&aacute;tis
+            </a>
+            <a class="btn btn-light" href="#planos">Ver planos</a>
           </div>
-          <div class="hero-note">Instalação rápida. Seus dados permanecem sob o controle da sua empresa.</div>
-        </div>
-      </div>
-    </section>
 
-    <section class="screenshots-section">
-      <div class="container">
-        <div class="screenshots-head">
-          <h3>Conheça cada módulo</h3>
-          <p>Explore as principais funcionalidades do Total Obras em detalhes.</p>
-        </div>
-
-        <div class="screenshots-grid">
-          <article class="screenshot-card" data-caption="Painel Comercial" tabindex="0" role="button" aria-label="Ampliar imagem: Painel Comercial">
-            <img src="assets/screenshots/painel-comercial.jpg" alt="Painel Comercial - Dashboard com métricas de propostas, conversão de vendas e orçamentos" />
-            <div class="screenshot-overlay">
-              <div class="screenshot-label">Painel Comercial</div>
+          <div class="hero-proof" aria-label="Destaques do sistema">
+            <div class="proof-item">
+              <strong>Propostas claras</strong>
+              <span>modelos, servi&ccedil;os e condi&ccedil;&otilde;es comerciais</span>
             </div>
-          </article>
-
-          <article class="screenshot-card" data-caption="Pacotes &amp; Personalização" tabindex="0" role="button" aria-label="Ampliar imagem: Pacotes e Personalização">
-            <img src="assets/screenshots/pacotes-personalizacao.jpg" alt="Pacotes de Personalização - Configure categorias de serviços e modelos" />
-            <div class="screenshot-overlay">
-              <div class="screenshot-label">Pacotes & Personalização</div>
+            <div class="proof-item">
+              <strong>Cat&aacute;logo edit&aacute;vel</strong>
+              <span>categorias, unidades e pre&ccedil;os sugeridos</span>
             </div>
-          </article>
-
-          <article class="screenshot-card" data-caption="Módulo Financeiro" tabindex="0" role="button" aria-label="Ampliar imagem: Módulo Financeiro">
-            <img src="assets/screenshots/financeiro.jpg" alt="Módulo Financeiro - Controle de recebimentos, despesas e fluxo de caixa" />
-            <div class="screenshot-overlay">
-              <div class="screenshot-label">Módulo Financeiro</div>
+            <div class="proof-item">
+              <strong>Financeiro organizado</strong>
+              <span>recebimentos, despesas e fluxo de caixa</span>
             </div>
-          </article>
-
-          <article class="screenshot-card" data-caption="Categorias &amp; Serviços" tabindex="0" role="button" aria-label="Ampliar imagem: Categorias e Serviços">
-            <img src="assets/screenshots/categorias-servicos.jpg" alt="Categorias de Serviços - Organize e gerencie seus serviços" />
-            <div class="screenshot-overlay">
-              <div class="screenshot-label">Categorias & Serviços</div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="planos">
-      <div class="container">
-        <div class="section-head">
-          <h2>Um plano para cada fase do seu escritório</h2>
-          <p>Comece com o essencial e evolua conforme sua operação cresce.</p>
-        </div>
-
-        <div class="billing-toggle">
-          <div class="toggle-shell" role="group" aria-label="Periodicidade da cobrança">
-            <button class="active" type="button" data-billing="monthly">Mensal</button>
-            <button type="button" data-billing="annual">Anual</button>
           </div>
-          <span class="save-badge">Economize cerca de 2 meses</span>
-        </div>
-
-        <div class="pricing-grid">
-          <article class="price-card">
-            <span class="plan-label">Para começar</span>
-            <h3>Essencial</h3>
-            <p class="plan-desc">Para profissionais autônomos que precisam organizar propostas e recebimentos.</p>
-            <div class="price-line">
-              <span class="currency">R$</span>
-              <span class="price" data-monthly="49,90" data-annual="41,58">49,90</span>
-              <span class="period">/mês</span>
-            </div>
-            <div class="annual-detail" data-monthly-text="Cobrança mensal." data-annual-text="R$ 499,00 cobrados por ano.">Cobrança mensal.</div>
-
-            <ul class="feature-list">
-              <li><span class="check">✓</span>1 empresa</li>
-              <li><span class="check">✓</span>1 computador ativado</li>
-              <li><span class="check">✓</span>Até 30 orçamentos por mês</li>
-              <li><span class="check">✓</span>Clientes, serviços e modelos</li>
-              <li><span class="check">✓</span>Propostas em PDF</li>
-              <li><span class="check">✓</span>Controle básico de recebimentos</li>
-            </ul>
-
-            <a class="btn btn-dark" href="https://wa.me/5567999721591?text=Olá%2C%20quero%20testar%20o%20plano%20Essencial%20do%20Total%20Obras." target="_blank" rel="noopener">Começar teste grátis</a>
-          </article>
-
-          <article class="price-card featured">
-            <span class="popular">Mais escolhido</span>
-            <span class="plan-label">Melhor custo-benefício</span>
-            <h3>Profissional</h3>
-            <p class="plan-desc">Para escritórios que precisam de recursos completos para vender e administrar.</p>
-            <div class="price-line">
-              <span class="currency">R$</span>
-              <span class="price" data-monthly="99,90" data-annual="83,25">99,90</span>
-              <span class="period">/mês</span>
-            </div>
-            <div class="annual-detail" data-monthly-text="Cobrança mensal." data-annual-text="R$ 999,00 cobrados por ano.">Cobrança mensal.</div>
-
-            <ul class="feature-list">
-              <li><span class="check">✓</span>1 empresa</li>
-              <li><span class="check">✓</span>Até 3 computadores</li>
-              <li><span class="check">✓</span>Orçamentos ilimitados</li>
-              <li><span class="check">✓</span>Modelos e pacotes completos</li>
-              <li><span class="check">✓</span>Fases dos serviços</li>
-              <li><span class="check">✓</span>Financeiro, parcelas e despesas</li>
-              <li><span class="check">✓</span>Relatórios e backup</li>
-              <li><span class="check">✓</span>Suporte prioritário</li>
-            </ul>
-
-            <a class="btn btn-primary" href="https://wa.me/5567999721591?text=Olá%2C%20quero%20testar%20o%20plano%20Profissional%20do%20Total%20Obras." target="_blank" rel="noopener">Começar teste grátis</a>
-          </article>
-
-          <article class="price-card">
-            <span class="plan-label">Para equipes</span>
-            <h3>Escritório</h3>
-            <p class="plan-desc">Para operações maiores, empresas com mais computadores e diferentes marcas.</p>
-            <div class="price-line">
-              <span class="currency">R$</span>
-              <span class="price" data-monthly="169,90" data-annual="141,58">169,90</span>
-              <span class="period">/mês</span>
-            </div>
-            <div class="annual-detail" data-monthly-text="Cobrança mensal." data-annual-text="R$ 1.699,00 cobrados por ano.">Cobrança mensal.</div>
-
-            <ul class="feature-list">
-              <li><span class="check">✓</span>Até 3 empresas</li>
-              <li><span class="check">✓</span>Até 5 computadores</li>
-              <li><span class="check">✓</span>Todos os recursos do Profissional</li>
-              <li><span class="check">✓</span>Relatórios consolidados</li>
-              <li><span class="check">✓</span>Configuração inicial assistida</li>
-              <li><span class="check">✓</span>Atendimento prioritário</li>
-            </ul>
-
-            <a class="btn btn-dark" href="https://wa.me/5567999721591?text=Olá%2C%20quero%20conhecer%20o%20plano%20Escritório%20do%20Total%20Obras." target="_blank" rel="noopener">Falar com atendimento</a>
-          </article>
         </div>
       </div>
     </section>
@@ -827,227 +1114,518 @@
     <section id="recursos">
       <div class="container">
         <div class="section-head">
-          <h2>Compare os recursos</h2>
-          <p>Escolha o plano que atende a sua rotina atual.</p>
+          <span class="section-kicker">Recursos</span>
+          <h2>Tudo que sua rotina comercial precisa para sair do improviso</h2>
+          <p>O Total Obras junta or&ccedil;amento, proposta, servi&ccedil;o, cliente e financeiro em uma experi&ecirc;ncia simples de operar.</p>
         </div>
 
-        <div class="comparison-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Recurso</th>
-                <th>Essencial</th>
-                <th class="highlight-col">Profissional</th>
-                <th>Escritório</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>Empresas cadastradas</td><td>1</td><td class="highlight-col">1</td><td>Até 3</td></tr>
-              <tr><td>Computadores ativados</td><td>1</td><td class="highlight-col">Até 3</td><td>Até 5</td></tr>
-              <tr><td>Orçamentos mensais</td><td>Até 30</td><td class="highlight-col">Ilimitados</td><td>Ilimitados</td></tr>
-              <tr><td>Modelos e pacotes</td><td class="yes">✓</td><td class="highlight-col yes">✓</td><td class="yes">✓</td></tr>
-              <tr><td>Financeiro completo</td><td class="no">—</td><td class="highlight-col yes">✓</td><td class="yes">✓</td></tr>
-              <tr><td>Fases dos serviços</td><td class="no">—</td><td class="highlight-col yes">✓</td><td class="yes">✓</td></tr>
-              <tr><td>Relatórios</td><td>Básicos</td><td class="highlight-col">Completos</td><td>Consolidados</td></tr>
-              <tr><td>Suporte</td><td>Padrão</td><td class="highlight-col">Prioritário</td><td>Prioritário</td></tr>
-            </tbody>
-          </table>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <span class="icon-box">01</span>
+            <div>
+              <h3>Painel comercial</h3>
+              <p>Acompanhe propostas emitidas, taxa de convers&atilde;o, valores aprovados, negocia&ccedil;&otilde;es e prazos de validade.</p>
+            </div>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-box">02</span>
+            <div>
+              <h3>Or&ccedil;amentos e propostas</h3>
+              <p>Monte propostas com clientes, servi&ccedil;os, quantidades, valores, condi&ccedil;&otilde;es comerciais e modelos prontos.</p>
+            </div>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-box">03</span>
+            <div>
+              <h3>Cat&aacute;logo de servi&ccedil;os</h3>
+              <p>Cadastre categorias, unidades, pre&ccedil;os sugeridos e descri&ccedil;&otilde;es para padronizar o que sua empresa vende.</p>
+            </div>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-box">04</span>
+            <div>
+              <h3>Pacotes de atua&ccedil;&atilde;o</h3>
+              <p>Use bases prontas para arquitetura, engenharia, topografia, constru&ccedil;&atilde;o civil, ambiental e outros servi&ccedil;os.</p>
+            </div>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-box">05</span>
+            <div>
+              <h3>Financeiro</h3>
+              <p>Controle contas a receber, despesas, pagamentos, movimenta&ccedil;&otilde;es recentes e resultado do m&ecirc;s.</p>
+            </div>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-box">06</span>
+            <div>
+              <h3>Modelos personalizados</h3>
+              <p>Padronize textos, apresenta&ccedil;&atilde;o e condi&ccedil;&otilde;es para gerar documentos com apar&ecirc;ncia profissional.</p>
+            </div>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-box">07</span>
+            <div>
+              <h3>Gest&atilde;o por status</h3>
+              <p>Separe rascunhos, enviados, aprovados, recusados, expirados e cancelados sem perder hist&oacute;rico.</p>
+            </div>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-box">08</span>
+            <div>
+              <h3>Licen&ccedil;a e empresa</h3>
+              <p>Organize dados da empresa ativa, computadores permitidos e recursos liberados conforme o plano.</p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="extras">
+    <section class="showcase" aria-labelledby="telas">
       <div class="container">
         <div class="section-head">
-          <h2>Serviços adicionais</h2>
-          <p>Contrate somente quando precisar de apoio extra.</p>
+          <span class="section-kicker">Telas do sistema</span>
+          <h2 id="telas">Veja como o Total Obras funciona na pr&aacute;tica</h2>
+          <p>As principais &aacute;reas ficam organizadas para voc&ecirc; vender, acompanhar e administrar com mais clareza.</p>
         </div>
 
-        <div class="extras-grid">
-          <article class="extra-card">
-            <h3>Implantação assistida</h3>
-            <p>Configuração inicial, dados da empresa, serviços e orientações para começar.</p>
-            <strong>R$ 249,00</strong>
+        <div class="showcase-grid">
+          <figure class="screenshot" tabindex="0" role="button" aria-label="Abrir imagem ampliada: Painel comercial">
+            <img src="assets/screenshots/painel-comercial.jpg" alt="Painel comercial do Total Obras com indicadores de propostas e conversao" loading="lazy" />
+            <figcaption>Painel comercial <span>vendas e propostas</span></figcaption>
+          </figure>
+
+          <figure class="screenshot" tabindex="0" role="button" aria-label="Abrir imagem ampliada: Pacotes de personalizacao">
+            <img src="assets/screenshots/pacotes-personalizacao.jpg" alt="Tela de pacotes de personalizacao do Total Obras" loading="lazy" />
+            <figcaption>Pacotes de personaliza&ccedil;&atilde;o <span>bases prontas</span></figcaption>
+          </figure>
+
+          <figure class="screenshot" tabindex="0" role="button" aria-label="Abrir imagem ampliada: Financeiro">
+            <img src="assets/screenshots/financeiro.jpg" alt="Modulo financeiro do Total Obras com contas e movimentacoes" loading="lazy" />
+            <figcaption>Financeiro <span>receitas e despesas</span></figcaption>
+          </figure>
+
+          <figure class="screenshot" tabindex="0" role="button" aria-label="Abrir imagem ampliada: Categorias e servicos">
+            <img src="assets/screenshots/categorias-servicos.jpg" alt="Tela de categorias e catalogo de servicos do Total Obras" loading="lazy" />
+            <figcaption>Categorias e servi&ccedil;os <span>catalogo editavel</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="benefits" id="beneficios">
+      <div class="container benefit-layout">
+        <div class="benefit-panel">
+          <span class="section-kicker">Benef&iacute;cios</span>
+          <h2>Mais controle para vender melhor e administrar com menos retrabalho</h2>
+          <p>O sistema ajuda sua equipe a manter padr&atilde;o comercial, previsibilidade financeira e hist&oacute;rico organizado.</p>
+          <a class="btn btn-primary" href="https://wa.me/5567999721591?text=Ol%C3%A1%2C%20quero%20entender%20os%20benef%C3%ADcios%20do%20Total%20Obras." target="_blank" rel="noopener">
+            <svg class="whatsapp-icon brand-green" viewBox="0 0 448 512" aria-hidden="true" focusable="false">
+              <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32 101.5 32 1.9 131.6 1.9 254c0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1C346.2 476.1 448 376.5 448 254.1c0-59.3-25.2-115-67.1-157zM223.9 438.7c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
+            </svg>
+            Conversar pelo WhatsApp
+          </a>
+        </div>
+
+        <div class="benefit-list">
+          <article class="benefit-card">
+            <span class="check" aria-hidden="true"></span>
+            <div>
+              <h3>Propostas mais r&aacute;pidas</h3>
+              <p>Reaproveite servi&ccedil;os, modelos e pacotes para reduzir tempo de montagem e evitar digita&ccedil;&atilde;o repetida.</p>
+            </div>
           </article>
-          <article class="extra-card">
-            <h3>Importação de cadastros</h3>
-            <p>Importação organizada de clientes, serviços e informações existentes.</p>
-            <strong>R$ 150 a R$ 400</strong>
+
+          <article class="benefit-card">
+            <span class="check" aria-hidden="true"></span>
+            <div>
+              <h3>Pre&ccedil;os e servi&ccedil;os padronizados</h3>
+              <p>Mantenha uma base comercial consistente para cada tipo de trabalho, com descri&ccedil;&otilde;es e valores sugeridos.</p>
+            </div>
           </article>
-          <article class="extra-card">
-            <h3>Modelo personalizado</h3>
-            <p>Criação de modelo comercial específico para o serviço da sua empresa.</p>
-            <strong>R$ 100 a R$ 250</strong>
+
+          <article class="benefit-card">
+            <span class="check" aria-hidden="true"></span>
+            <div>
+              <h3>Vis&atilde;o do funil</h3>
+              <p>Saiba quantas propostas est&atilde;o em rascunho, enviadas, aprovadas, recusadas ou aguardando resposta.</p>
+            </div>
           </article>
-          <article class="extra-card">
-            <h3>Computador adicional</h3>
-            <p>Ativação extra além do limite incluído no plano contratado.</p>
-            <strong>R$ 19,90/mês</strong>
+
+          <article class="benefit-card">
+            <span class="check" aria-hidden="true"></span>
+            <div>
+              <h3>Financeiro conectado &agrave; opera&ccedil;&atilde;o</h3>
+              <p>Acompanhe contas a receber, atrasos, despesas e resultado para tomar decis&otilde;es com base em dados.</p>
+            </div>
           </article>
-          <article class="extra-card">
-            <h3>Empresa adicional</h3>
-            <p>Cadastro e gestão de outra empresa ou marca no mesmo ambiente.</p>
-            <strong>R$ 39,90/mês</strong>
-          </article>
-          <article class="extra-card">
-            <h3>Treinamento remoto</h3>
-            <p>Treinamento individual ou para sua equipe, com duração de uma hora.</p>
-            <strong>R$ 150,00</strong>
+
+          <article class="benefit-card">
+            <span class="check" aria-hidden="true"></span>
+            <div>
+              <h3>Mais profissionalismo para o cliente</h3>
+              <p>Transforme or&ccedil;amentos em documentos consistentes, com informa&ccedil;&otilde;es claras e melhor apresenta&ccedil;&atilde;o.</p>
+            </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section>
+    <section class="pricing" id="planos">
       <div class="container">
         <div class="section-head">
-          <h2>Comece em três etapas</h2>
-          <p>Sem implantação complicada e sem período longo de adaptação.</p>
+          <span class="section-kicker">Planos</span>
+          <h2>Um plano para cada fase do seu escrit&oacute;rio</h2>
+          <p>Comece com o essencial e evolua conforme sua opera&ccedil;&atilde;o cresce.</p>
         </div>
+
+        <p class="pricing-note">Teste gratuito por 15 dias, sem cart&atilde;o. Fale pelo WhatsApp: (67) 99972-1591.</p>
+
+        <div class="billing-toggle">
+          <div class="toggle-shell" role="group" aria-label="Periodicidade da cobran&ccedil;a">
+            <button class="active" type="button" data-billing="monthly">Mensal</button>
+            <button type="button" data-billing="annual">Anual</button>
+          </div>
+          <span class="save-badge">Economize cerca de 2 meses</span>
+        </div>
+
+        <div class="plans">
+          <article class="plan-card">
+            <span class="tag">Para come&ccedil;ar</span>
+            <h3>Essencial</h3>
+            <p>Para profissionais aut&ocirc;nomos que precisam organizar propostas e recebimentos.</p>
+
+            <div class="price">
+              <small>R$</small>
+              <strong data-monthly="49,90" data-annual="41,58">49,90</strong>
+              <small>/m&ecirc;s</small>
+            </div>
+            <div class="plan-detail" data-monthly-text="Cobran&ccedil;a mensal." data-annual-text="R$ 499,00 cobrados por ano.">Cobran&ccedil;a mensal.</div>
+
+            <ul class="plan-list">
+              <li>1 empresa cadastrada</li>
+              <li>1 computador ativado</li>
+              <li>At&eacute; 30 or&ccedil;amentos por m&ecirc;s</li>
+              <li>Clientes, servi&ccedil;os e modelos</li>
+              <li>Propostas em PDF</li>
+              <li>Controle b&aacute;sico de recebimentos</li>
+            </ul>
+
+            <a class="btn btn-dark js-payment-link" href="https://wa.me/5567999721591?text=Ol%C3%A1%2C%20quero%20receber%20o%20link%20de%20pagamento%20do%20plano%20Essencial%20do%20Total%20Obras." target="_blank" rel="noopener" data-plan="essential" data-fallback-href="https://wa.me/5567999721591?text=Ol%C3%A1%2C%20quero%20receber%20o%20link%20de%20pagamento%20do%20plano%20Essencial%20do%20Total%20Obras.">Assinar pelo Asaas</a>
+            <p class="payment-note">Pagamento seguro via Asaas com Pix, boleto ou cart&atilde;o.</p>
+          </article>
+
+          <article class="plan-card featured">
+            <span class="tag">Mais escolhido</span>
+            <h3>Profissional</h3>
+            <p>Para escrit&oacute;rios que precisam de recursos completos para vender e administrar.</p>
+
+            <div class="price">
+              <small>R$</small>
+              <strong data-monthly="99,90" data-annual="83,25">99,90</strong>
+              <small>/m&ecirc;s</small>
+            </div>
+            <div class="plan-detail" data-monthly-text="Cobran&ccedil;a mensal." data-annual-text="R$ 999,00 cobrados por ano.">Cobran&ccedil;a mensal.</div>
+
+            <ul class="plan-list">
+              <li>1 empresa cadastrada</li>
+              <li>At&eacute; 3 computadores ativados</li>
+              <li>Or&ccedil;amentos ilimitados</li>
+              <li>Modelos e pacotes completos</li>
+              <li>Fases dos servi&ccedil;os</li>
+              <li>Financeiro, parcelas e despesas</li>
+              <li>Relat&oacute;rios e backup</li>
+              <li>Suporte priorit&aacute;rio</li>
+            </ul>
+
+            <a class="btn btn-primary js-payment-link" href="https://wa.me/5567999721591?text=Ol%C3%A1%2C%20quero%20receber%20o%20link%20de%20pagamento%20do%20plano%20Profissional%20do%20Total%20Obras." target="_blank" rel="noopener" data-plan="professional" data-fallback-href="https://wa.me/5567999721591?text=Ol%C3%A1%2C%20quero%20receber%20o%20link%20de%20pagamento%20do%20plano%20Profissional%20do%20Total%20Obras.">Assinar pelo Asaas</a>
+            <p class="payment-note">Pagamento seguro via Asaas com Pix, boleto ou cart&atilde;o.</p>
+          </article>
+
+          <article class="plan-card">
+            <span class="tag">Para equipes</span>
+            <h3>Escrit&oacute;rio</h3>
+            <p>Para opera&ccedil;&otilde;es maiores, empresas com mais computadores e diferentes marcas.</p>
+
+            <div class="price">
+              <small>R$</small>
+              <strong data-monthly="169,90" data-annual="141,58">169,90</strong>
+              <small>/m&ecirc;s</small>
+            </div>
+            <div class="plan-detail" data-monthly-text="Cobran&ccedil;a mensal." data-annual-text="R$ 1.699,00 cobrados por ano.">Cobran&ccedil;a mensal.</div>
+
+            <ul class="plan-list">
+              <li>At&eacute; 3 empresas cadastradas</li>
+              <li>At&eacute; 5 computadores ativados</li>
+              <li>Todos os recursos do Profissional</li>
+              <li>Relat&oacute;rios consolidados</li>
+              <li>Configura&ccedil;&atilde;o inicial assistida</li>
+              <li>Atendimento priorit&aacute;rio</li>
+            </ul>
+
+            <a class="btn btn-dark js-payment-link" href="https://wa.me/5567999721591?text=Ol%C3%A1%2C%20quero%20receber%20o%20link%20de%20pagamento%20do%20plano%20Escrit%C3%B3rio%20do%20Total%20Obras." target="_blank" rel="noopener" data-plan="office" data-fallback-href="https://wa.me/5567999721591?text=Ol%C3%A1%2C%20quero%20receber%20o%20link%20de%20pagamento%20do%20plano%20Escrit%C3%B3rio%20do%20Total%20Obras.">Assinar pelo Asaas</a>
+            <p class="payment-note">Pagamento seguro via Asaas com Pix, boleto ou cart&atilde;o.</p>
+          </article>
+        </div>
+
+        <div class="comparison">
+          <h3>Compare os recursos</h3>
+          <div class="comparison-wrap">
+            <table>
+              <thead>
+                <tr><th>Recurso</th><th>Essencial</th><th class="highlight-col">Profissional</th><th>Escrit&oacute;rio</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Empresas cadastradas</td><td>1</td><td class="highlight-col">1</td><td>At&eacute; 3</td></tr>
+                <tr><td>Computadores ativados</td><td>1</td><td class="highlight-col">At&eacute; 3</td><td>At&eacute; 5</td></tr>
+                <tr><td>Or&ccedil;amentos mensais</td><td>At&eacute; 30</td><td class="highlight-col">Ilimitados</td><td>Ilimitados</td></tr>
+                <tr><td>Modelos e pacotes</td><td class="yes">&#10003;</td><td class="highlight-col yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+                <tr><td>Financeiro completo</td><td class="no">&mdash;</td><td class="highlight-col yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+                <tr><td>Fases dos servi&ccedil;os</td><td class="no">&mdash;</td><td class="highlight-col yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+                <tr><td>Relat&oacute;rios</td><td>B&aacute;sicos</td><td class="highlight-col">Completos</td><td>Consolidados</td></tr>
+                <tr><td>Suporte</td><td>Padr&atilde;o</td><td class="highlight-col">Priorit&aacute;rio</td><td>Priorit&aacute;rio</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="addons">
+          <h3>Servi&ccedil;os adicionais</h3>
+          <div class="addons-grid">
+            <div class="addon"><strong>Implanta&ccedil;&atilde;o assistida</strong><span>R$ 249,00</span></div>
+            <div class="addon"><strong>Importa&ccedil;&atilde;o de cadastros</strong><span>R$ 150 a R$ 400</span></div>
+            <div class="addon"><strong>Modelo personalizado</strong><span>R$ 100 a R$ 250</span></div>
+            <div class="addon"><strong>Computador adicional</strong><span>R$ 19,90/m&ecirc;s</span></div>
+            <div class="addon"><strong>Empresa adicional</strong><span>R$ 39,90/m&ecirc;s</span></div>
+            <div class="addon"><strong>Treinamento remoto</strong><span>R$ 150,00</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="process">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-kicker">Como come&ccedil;ar</span>
+          <h2>Em poucos passos voc&ecirc; j&aacute; consegue emitir a primeira proposta</h2>
+          <p>A implanta&ccedil;&atilde;o pode ser simples: instalar, configurar a empresa e cadastrar seus servi&ccedil;os principais.</p>
+        </div>
+
         <div class="steps">
           <article class="step">
             <div class="step-number">1</div>
-            <h3>Solicite o acesso</h3>
-            <p>Escolha o plano e receba as orientações para instalação do Total Obras.</p>
+            <h3>Chame no WhatsApp</h3>
+            <p>Envie uma mensagem para tirar d&uacute;vidas, solicitar demonstra&ccedil;&atilde;o ou escolher o melhor plano.</p>
           </article>
+
           <article class="step">
             <div class="step-number">2</div>
-            <h3>Configure seu escritório</h3>
-            <p>Cadastre a empresa, serviços, modelos, formas de pagamento e fases.</p>
+            <h3>Configure sua empresa</h3>
+            <p>Cadastre dados comerciais, servi&ccedil;os, modelos e categorias conforme sua &aacute;rea de atua&ccedil;&atilde;o.</p>
           </article>
+
           <article class="step">
             <div class="step-number">3</div>
-            <h3>Gere sua primeira proposta</h3>
-            <p>Monte o orçamento, aplique um modelo e gere o documento profissional.</p>
+            <h3>Emita propostas</h3>
+            <p>Monte or&ccedil;amentos, acompanhe o status e registre recebimentos para manter tudo organizado.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="duvidas">
+    <section class="faq">
       <div class="container">
         <div class="section-head">
-          <h2>Dúvidas frequentes</h2>
-          <p>Informações objetivas antes de iniciar seu teste.</p>
+          <span class="section-kicker">D&uacute;vidas frequentes</span>
+          <h2>Respostas r&aacute;pidas antes de contratar</h2>
+          <p>Algumas informa&ccedil;&otilde;es para facilitar a conversa comercial.</p>
         </div>
 
-        <div class="faq">
+        <div class="faq-list">
           <details>
-            <summary>Preciso informar cartão para testar?</summary>
-            <p>Não. O teste gratuito pode ser iniciado sem cartão. A contratação ocorre somente após sua decisão.</p>
+            <summary>O sistema serve para quais &aacute;reas?</summary>
+            <p>Serve para arquitetura, engenharia, topografia, constru&ccedil;&atilde;o civil, consultoria ambiental, manuten&ccedil;&atilde;o predial e outros servi&ccedil;os t&eacute;cnicos que trabalham com propostas e or&ccedil;amentos.</p>
           </details>
           <details>
-            <summary>Meus dados ficam seguros?</summary>
-            <p>Os dados operacionais permanecem sob controle da sua empresa. Recomendamos manter o recurso de backup configurado e fazer cópias periódicas.</p>
+            <summary>Posso personalizar servi&ccedil;os e modelos?</summary>
+            <p>Sim. Voc&ecirc; pode editar categorias, servi&ccedil;os, pre&ccedil;os sugeridos, descri&ccedil;&otilde;es e modelos de proposta.</p>
           </details>
           <details>
-            <summary>Posso mudar de plano depois?</summary>
-            <p>Sim. O plano pode ser alterado conforme a necessidade de computadores, empresas e recursos.</p>
+            <summary>O financeiro substitui um sistema fiscal?</summary>
+            <p>N&atilde;o. O financeiro ajuda no controle de recebimentos, despesas e fluxo de caixa operacional. Emiss&atilde;o fiscal deve ser feita em sistema pr&oacute;prio para isso.</p>
           </details>
           <details>
-            <summary>O Total Obras emite nota fiscal?</summary>
-            <p>O sistema é voltado a propostas, orçamentos e gestão. A emissão fiscal não está incluída nesta versão.</p>
-          </details>
-          <details>
-            <summary>O plano anual tem desconto?</summary>
-            <p>Sim. O pagamento anual equivale aproximadamente a dez mensalidades.</p>
+            <summary>Como falo para testar ou contratar?</summary>
+            <p>Chame no WhatsApp (67) 99972-1591. Os bot&otilde;es desta p&aacute;gina j&aacute; abrem a conversa com uma mensagem pronta.</p>
           </details>
         </div>
       </div>
     </section>
 
-    <section class="cta">
-      <div class="container">
-        <div class="cta-box">
-          <div>
-            <h2>Transforme sua proposta em uma ferramenta de venda.</h2>
-            <p>Teste o Total Obras por 15 dias e organize sua operação.</p>
-          </div>
-          <a class="btn btn-dark" href="https://wa.me/5567999721591?text=Olá%2C%20quero%20iniciar%20meu%20teste%20gratuito%20do%20Total%20Obras." target="_blank" rel="noopener">Iniciar teste gratuito</a>
+    <section class="contact" id="contato">
+      <div class="container contact-box">
+        <div>
+          <span class="section-kicker">Contato</span>
+          <h2>Quer ver o Total Obras funcionando no seu escrit&oacute;rio?</h2>
+          <p>Fale pelo WhatsApp para receber uma demonstra&ccedil;&atilde;o, tirar d&uacute;vidas sobre planos e entender qual configura&ccedil;&atilde;o combina com sua rotina.</p>
         </div>
+        <a class="btn btn-primary" href="https://wa.me/5567999721591?text=Ol%C3%A1%2C%20quero%20falar%20sobre%20o%20Total%20Obras." target="_blank" rel="noopener">
+          <svg class="whatsapp-icon brand-green" viewBox="0 0 448 512" aria-hidden="true" focusable="false">
+            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32 101.5 32 1.9 131.6 1.9 254c0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1C346.2 476.1 448 376.5 448 254.1c0-59.3-25.2-115-67.1-157zM223.9 438.7c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
+          </svg>
+          WhatsApp (67) 99972-1591
+        </a>
       </div>
     </section>
   </main>
 
   <footer>
     <div class="container footer-row">
-      <div><strong>Total Obras</strong><br />Propostas e Gestão</div>
-      <div>© <span id="year"></span> Total Obras. Todos os direitos reservados.</div>
-      <div>totalobras.com.br</div>
+      <div><strong>Total Obras</strong><br />Propostas e Gest&atilde;o</div>
+      <div>Contato: (67) 99972-1591</div>
+      <div>&copy; <span id="currentYear"></span> Total Obras</div>
     </div>
   </footer>
 
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagem ampliada">
-    <div class="lightbox-inner">
-      <button class="lightbox-close" id="lightboxClose" aria-label="Fechar imagem ampliada">✕</button>
-      <img id="lightboxImg" src="" alt="" />
+  <a class="whatsapp-float" href="https://wa.me/5567999721591?text=Ol%C3%A1%2C%20quero%20conhecer%20o%20Total%20Obras." target="_blank" rel="noopener" aria-label="Conversar pelo WhatsApp">
+    <svg class="whatsapp-icon" viewBox="0 0 448 512" aria-hidden="true" focusable="false">
+      <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32 101.5 32 1.9 131.6 1.9 254c0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1C346.2 476.1 448 376.5 448 254.1c0-59.3-25.2-115-67.1-157zM223.9 438.7c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
+    </svg>
+    WhatsApp
+  </a>
+
+  <div class="lightbox" id="imageLightbox" role="dialog" aria-modal="true" aria-label="Imagem ampliada">
+    <div class="lightbox-card">
+      <button class="lightbox-close" type="button" id="lightboxClose" aria-label="Fechar imagem ampliada">&times;</button>
+      <img id="lightboxImage" src="" alt="" />
       <div class="lightbox-caption" id="lightboxCaption"></div>
     </div>
   </div>
 
   <script>
-    const billingButtons = document.querySelectorAll('[data-billing]');
-    const prices = document.querySelectorAll('.price');
-    const details = document.querySelectorAll('.annual-detail');
+    const menuButton = document.querySelector(".menu-button");
+    const menu = document.querySelector("#menu");
+    const lightbox = document.querySelector("#imageLightbox");
+    const lightboxImage = document.querySelector("#lightboxImage");
+    const lightboxCaption = document.querySelector("#lightboxCaption");
+    const lightboxClose = document.querySelector("#lightboxClose");
+    const screenshots = document.querySelectorAll(".screenshot");
+    const billingButtons = document.querySelectorAll("[data-billing]");
+    const billingPrices = document.querySelectorAll(".price strong[data-monthly]");
+    const billingDetails = document.querySelectorAll(".plan-detail[data-monthly-text]");
+    const paymentButtons = document.querySelectorAll(".js-payment-link");
 
-    billingButtons.forEach(button => {
-      button.addEventListener('click', () => {
+    // Cole aqui os links de pagamento/assinatura gerados no Asaas.
+    // Enquanto um link ficar vazio, o botão abre o WhatsApp pedindo a cobrança.
+    const ASAAS_PAYMENT_LINKS = {
+      essential: {
+        monthly: "",
+        annual: "",
+      },
+      professional: {
+        monthly: "",
+        annual: "",
+      },
+      office: {
+        monthly: "",
+        annual: "",
+      },
+    };
+
+    function updatePaymentButtons(mode) {
+      paymentButtons.forEach((link) => {
+        const plan = link.dataset.plan;
+        const planLinks = ASAAS_PAYMENT_LINKS[plan] || {};
+        const paymentUrl = planLinks[mode] ? planLinks[mode].trim() : "";
+        const fallbackUrl = link.dataset.fallbackHref || link.href;
+
+        link.href = paymentUrl || fallbackUrl;
+        link.target = "_blank";
+        link.rel = "noopener";
+        link.textContent = paymentUrl
+          ? (mode === "annual" ? "Assinar anual pelo Asaas" : "Assinar mensal pelo Asaas")
+          : "Solicitar link de pagamento";
+        link.classList.toggle("payment-link-pending", !paymentUrl);
+      });
+    }
+
+    billingButtons.forEach((button) => {
+      button.addEventListener("click", () => {
         const mode = button.dataset.billing;
 
-        billingButtons.forEach(item => item.classList.toggle('active', item === button));
-
-        prices.forEach(price => {
-          price.textContent = mode === 'annual' ? price.dataset.annual : price.dataset.monthly;
+        billingButtons.forEach((item) => item.classList.toggle("active", item === button));
+        billingPrices.forEach((price) => {
+          price.textContent = mode === "annual" ? price.dataset.annual : price.dataset.monthly;
         });
-
-        details.forEach(detail => {
-          detail.textContent = mode === 'annual'
-            ? detail.dataset.annualText
-            : detail.dataset.monthlyText;
+        billingDetails.forEach((detail) => {
+          detail.textContent = mode === "annual" ? detail.dataset.annualText : detail.dataset.monthlyText;
         });
+        updatePaymentButtons(mode);
       });
     });
 
-    document.getElementById('year').textContent = new Date().getFullYear();
+    updatePaymentButtons("monthly");
 
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightboxImg');
-    const lightboxCaption = document.getElementById('lightboxCaption');
-    const lightboxClose = document.getElementById('lightboxClose');
-    const screenshotCards = document.querySelectorAll('.screenshot-card');
+    menuButton.addEventListener("click", () => {
+      const isOpen = menu.classList.toggle("open");
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+    });
 
-    function openLightbox(card){
-      const img = card.querySelector('img');
-      lightboxImg.src = img.src;
-      lightboxImg.alt = img.alt;
-      lightboxCaption.textContent = card.dataset.caption || '';
-      lightbox.classList.add('open');
-      document.body.style.overflow = 'hidden';
+    menu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        menu.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    function openLightbox(item) {
+      const image = item.querySelector("img");
+      const caption = item.querySelector("figcaption");
+
+      lightboxImage.src = image.src;
+      lightboxImage.alt = image.alt;
+      lightboxCaption.textContent = caption ? caption.textContent.trim() : "";
+      lightbox.classList.add("open");
+      document.body.style.overflow = "hidden";
+      lightboxClose.focus();
     }
 
-    function closeLightbox(){
-      lightbox.classList.remove('open');
-      lightboxImg.src = '';
-      document.body.style.overflow = '';
+    function closeLightbox() {
+      lightbox.classList.remove("open");
+      lightboxImage.src = "";
+      document.body.style.overflow = "";
     }
 
-    screenshotCards.forEach(card => {
-      card.addEventListener('click', () => openLightbox(card));
-      card.addEventListener('keydown', (e) => {
-        if(e.key === 'Enter' || e.key === ' '){
-          e.preventDefault();
-          openLightbox(card);
+    screenshots.forEach((item) => {
+      item.addEventListener("click", () => openLightbox(item));
+      item.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openLightbox(item);
         }
       });
     });
 
-    lightboxClose.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e) => {
-      if(e.target === lightbox) closeLightbox();
+    lightboxClose.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
     });
-    document.addEventListener('keydown', (e) => {
-      if(e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && lightbox.classList.contains("open")) {
+        closeLightbox();
+      }
     });
+
+    document.querySelector("#currentYear").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
