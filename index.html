@@ -147,6 +147,7 @@
 
     .hero-text{
       max-width:620px;
+      padding-left:clamp(0px, 4vw, 56px);
     }
 
     .eyebrow{
@@ -190,135 +191,6 @@
       margin-top:18px;
       color:#aebacc;
       font-size:.88rem;
-    }
-
-    .showcase{
-      position:relative;
-      overflow:hidden;
-      background:
-        radial-gradient(circle at 85% 15%, rgba(221,179,59,.15), transparent 35%),
-        radial-gradient(circle at 15% 85%, rgba(31,191,130,.08), transparent 40%),
-        linear-gradient(135deg,#14243a 0%,#1b3151 50%,#182847 100%);
-      color:#fff;
-      padding:140px 0;
-    }
-
-    .showcase:before{
-      content:"";
-      position:absolute;
-      inset:auto -8% -80px -8%;
-      height:160px;
-      background:var(--cream);
-      border-radius:50% 50% 0 0;
-    }
-
-    .showcase-head{
-      text-align:center;
-      margin-bottom:80px;
-      position:relative;
-      z-index:1;
-    }
-
-    .showcase-head h2{
-      margin:0 0 12px;
-      font-size:clamp(2rem,5vw,3.4rem);
-      line-height:1.08;
-      letter-spacing:-.04em;
-    }
-
-    .showcase-head p{
-      margin:0;
-      color:#b9c5d3;
-      font-size:1.1rem;
-      max-width:700px;
-      margin-left:auto;
-      margin-right:auto;
-    }
-
-    .showcase-wrapper{
-      position:relative;
-      z-index:1;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      min-height:500px;
-    }
-
-    .showcase-image{
-      position:relative;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .showcase-image img{
-      max-width:85%;
-      height:auto;
-      filter:drop-shadow(0 60px 120px rgba(0,0,0,.5));
-      animation:floatParallax 5s ease-in-out infinite;
-    }
-
-    @keyframes floatParallax{
-      0%, 100%{transform:translateY(0px) rotateZ(0deg)}
-      50%{transform:translateY(-18px) rotateZ(0.5deg)}
-    }
-
-    .feature-bubble{
-      position:absolute;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:8px;
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:16px;
-      padding:14px 18px;
-      backdrop-filter:blur(20px);
-      font-size:.82rem;
-      font-weight:700;
-      color:#fff;
-      white-space:nowrap;
-      box-shadow:0 10px 32px rgba(0,0,0,.3);
-    }
-
-    .feature-bubble:before{
-      content:"✓";
-      width:28px;
-      height:28px;
-      display:grid;
-      place-items:center;
-      background:linear-gradient(135deg,var(--gold-2),var(--gold));
-      border-radius:50%;
-      font-weight:950;
-      font-size:.85rem;
-      color:var(--navy);
-    }
-
-    .bubble-1{animation:bubble1 6s ease-in-out infinite}
-    .bubble-2{animation:bubble2 7s ease-in-out infinite}
-    .bubble-3{animation:bubble3 6.5s ease-in-out infinite}
-    .bubble-4{animation:bubble4 7.5s ease-in-out infinite}
-    .bubble-5{animation:bubble5 6.8s ease-in-out infinite}
-
-    @keyframes bubble1{
-      0%, 100%{transform:translate(0,0)}
-      50%{transform:translate(-8px, -8px)}
-    }
-    @keyframes bubble2{
-      0%, 100%{transform:translate(0,0)}
-      50%{transform:translate(8px, -10px)}
-    }
-    @keyframes bubble3{
-      0%, 100%{transform:translate(0,0)}
-      50%{transform:translate(-10px, 10px)}
-    }
-    @keyframes bubble4{
-      0%, 100%{transform:translate(0,0)}
-      50%{transform:translate(10px, 8px)}
-    }
-    @keyframes bubble5{
-      0%, 100%{transform:translate(0,0)}
-      50%{transform:translate(0px, -12px)}
     }
 
     .screenshots-section{
@@ -763,10 +635,6 @@
       }
       .hero-text{max-width:100%}
       .pricing-grid,.extras-grid,.steps{grid-template-columns:1fr}
-      .showcase-head{margin-bottom:60px}
-      .showcase-wrapper{min-height:400px}
-      .feature-bubble{padding:12px 14px;font-size:.75rem}
-      .feature-bubble:before{width:24px;height:24px}
       .screenshots-grid{grid-template-columns:1fr}
       .price-card.featured{transform:none}
       .cta-box{flex-direction:column;align-items:flex-start}
@@ -822,41 +690,6 @@
             <a class="btn btn-outline" href="https://wa.me/5567999721591?text=Olá%2C%20gostaria%20de%20uma%20demonstração%20do%20Total%20Obras." target="_blank" rel="noopener">Solicitar demonstração</a>
           </div>
           <div class="hero-note">Instalação rápida. Seus dados permanecem sob o controle da sua empresa.</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="showcase" id="showcase">
-      <div class="container">
-        <div class="showcase-head">
-          <h2>Tudo que você precisa em um único lugar</h2>
-          <p>Interface intuitiva e poderosa, desenvolvida para acelerar suas vendas e simplificar a gestão.</p>
-        </div>
-
-        <div class="showcase-wrapper">
-          <div class="showcase-image">
-            <img src="assets/mockup-notebook.jpg" alt="Laptop mostrando o painel comercial do Total Obras com dashboard de propostas, conversão de vendas e dados financeiros" />
-
-            <div class="feature-bubble bubble-1" style="top:-60px;left:-80px">
-              <span>Dashboard</span>
-            </div>
-
-            <div class="feature-bubble bubble-2" style="top:-40px;right:-120px">
-              <span>Propostas</span>
-            </div>
-
-            <div class="feature-bubble bubble-3" style="bottom:80px;left:-140px">
-              <span>Financeiro</span>
-            </div>
-
-            <div class="feature-bubble bubble-4" style="bottom:60px;right:-100px">
-              <span>Relatórios</span>
-            </div>
-
-            <div class="feature-bubble bubble-5" style="bottom:-80px;left:50%;transform:translateX(-50%)">
-              <span>Organização</span>
-            </div>
-          </div>
         </div>
       </div>
     </section>
