@@ -117,9 +117,15 @@
     .hero{
       position:relative;
       overflow:hidden;
+      min-height:720px;
+      display:flex;
+      align-items:center;
       background:
-        radial-gradient(circle at 82% 20%, rgba(221,179,59,.18), transparent 30%),
-        linear-gradient(145deg,#14243a 0%,#1b3151 65%,#14243a 100%);
+        linear-gradient(90deg, rgba(20,36,58,.98) 0%, rgba(20,36,58,.92) 30%, rgba(20,36,58,.55) 52%, rgba(20,36,58,.15) 70%, rgba(20,36,58,0) 85%),
+        url('assets/mockup-notebook.jpg');
+      background-size: cover;
+      background-position: right center;
+      background-repeat: no-repeat;
       color:#fff;
       padding:92px 0 118px;
     }
@@ -136,10 +142,11 @@
     .hero-grid{
       position:relative;
       z-index:1;
-      display:grid;
-      grid-template-columns:1.15fr .85fr;
-      gap:52px;
-      align-items:center;
+      width:100%;
+    }
+
+    .hero-text{
+      max-width:620px;
     }
 
     .eyebrow{
@@ -390,24 +397,6 @@
       font-weight:800;
       font-size:1.05rem;
       letter-spacing:-.02em;
-    }
-
-    .hero-mockup{
-      display:flex;
-      justify-content:center;
-      align-items:flex-end;
-    }
-
-    .hero-mockup img{
-      max-width:120%;
-      height:auto;
-      filter:drop-shadow(0 60px 120px rgba(0,0,0,.5));
-      animation:heroFloat 5s ease-in-out infinite;
-    }
-
-    @keyframes heroFloat{
-      0%, 100%{transform:translateY(0px)}
-      50%{transform:translateY(-20px)}
     }
 
     section{padding:88px 0}
@@ -708,8 +697,14 @@
 
     @media (max-width: 920px){
       .nav-links a:not(.btn){display:none}
-      .hero-grid{grid-template-columns:1fr}
-      .hero-card{max-width:620px}
+      .hero{
+        background:
+          linear-gradient(180deg, rgba(20,36,58,.97) 0%, rgba(20,36,58,.94) 55%, rgba(20,36,58,.85) 100%),
+          url('assets/mockup-notebook.jpg');
+        background-size:cover;
+        background-position:center 30%;
+      }
+      .hero-text{max-width:100%}
       .pricing-grid,.extras-grid,.steps{grid-template-columns:1fr}
       .showcase-head{margin-bottom:60px}
       .showcase-wrapper{min-height:400px}
@@ -722,7 +717,7 @@
 
     @media (max-width: 620px){
       .container{width:min(100% - 24px,1160px)}
-      .hero{padding:68px 0 98px}
+      .hero{padding:68px 0 98px;min-height:auto}
       .nav-links .btn{padding:0 14px;min-height:42px}
       .hero-actions{flex-direction:column}
       .hero-actions .btn{width:100%}
@@ -756,7 +751,7 @@
   <main>
     <section class="hero" id="inicio">
       <div class="container hero-grid">
-        <div>
+        <div class="hero-text">
           <span class="eyebrow">15 dias grátis • sem cartão</span>
           <h1>Orçamentos profissionais. Gestão mais simples.</h1>
           <p>
@@ -768,10 +763,6 @@
             <a class="btn btn-outline" href="https://wa.me/5567999721591?text=Olá%2C%20gostaria%20de%20uma%20demonstração%20do%20Total%20Obras." target="_blank" rel="noopener">Solicitar demonstração</a>
           </div>
           <div class="hero-note">Instalação rápida. Seus dados permanecem sob o controle da sua empresa.</div>
-        </div>
-
-        <div class="hero-mockup" aria-label="Mockup do notebook com o painel comercial do Total Obras">
-          <img src="assets/mockup-notebook.jpg" alt="Notebook em perspectiva 3D mostrando o painel comercial do Total Obras com dashboard de propostas e dados financeiros" />
         </div>
       </div>
     </section>
