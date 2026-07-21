@@ -392,68 +392,22 @@
       letter-spacing:-.02em;
     }
 
-    .hero-card{
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.13);
-      border-radius:26px;
-      padding:26px;
-      box-shadow:0 26px 80px rgba(0,0,0,.22);
-    }
-
-    .mock-top{
+    .hero-mockup{
       display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:22px;
+      justify-content:center;
+      align-items:flex-end;
     }
 
-    .mock-logo{
-      display:flex;
-      gap:8px;
-      align-items:center;
-      font-weight:800;
+    .hero-mockup img{
+      max-width:120%;
+      height:auto;
+      filter:drop-shadow(0 60px 120px rgba(0,0,0,.5));
+      animation:heroFloat 5s ease-in-out infinite;
     }
 
-    .mock-dot{
-      width:10px;height:28px;border-radius:8px;background:var(--gold);
-    }
-
-    .status{
-      display:flex;
-      align-items:center;
-      gap:7px;
-      font-size:.78rem;
-      color:#dce5f1;
-    }
-    .status i{
-      width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;
-    }
-
-    .mock-box{
-      background:#fff;
-      color:var(--text);
-      border-radius:18px;
-      padding:20px;
-    }
-
-    .mock-row{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      border-bottom:1px solid #edf0f4;
-      padding:12px 0;
-      font-size:.9rem;
-    }
-    .mock-row:last-child{border-bottom:none}
-    .mock-row span{color:var(--muted)}
-    .mock-total{
-      margin-top:16px;
-      padding:14px 16px;
-      border-radius:12px;
-      background:#f5f1e6;
-      display:flex;
-      justify-content:space-between;
-      font-weight:900;
+    @keyframes heroFloat{
+      0%, 100%{transform:translateY(0px)}
+      50%{transform:translateY(-20px)}
     }
 
     section{padding:88px 0}
@@ -816,18 +770,8 @@
           <div class="hero-note">Instalação rápida. Seus dados permanecem sob o controle da sua empresa.</div>
         </div>
 
-        <div class="hero-card" aria-label="Exemplo da interface do sistema">
-          <div class="mock-top">
-            <div class="mock-logo"><span class="mock-dot"></span>Total Obras</div>
-            <div class="status"><i></i> Empresa ativa</div>
-          </div>
-          <div class="mock-box">
-            <strong>Proposta Comercial Nº 0241</strong>
-            <div class="mock-row"><span>Projeto arquitetônico</span><b>R$ 5.600,00</b></div>
-            <div class="mock-row"><span>Projeto estrutural</span><b>R$ 2.800,00</b></div>
-            <div class="mock-row"><span>Projeto elétrico</span><b>R$ 1.680,00</b></div>
-            <div class="mock-total"><span>Total da proposta</span><span>R$ 10.080,00</span></div>
-          </div>
+        <div class="hero-mockup" aria-label="Mockup do notebook com o painel comercial do Total Obras">
+          <img src="assets/mockup-notebook.jpg" alt="Notebook em perspectiva 3D mostrando o painel comercial do Total Obras com dashboard de propostas e dados financeiros" />
         </div>
       </div>
     </section>
