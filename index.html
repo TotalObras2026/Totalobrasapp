@@ -185,6 +185,213 @@
       font-size:.88rem;
     }
 
+    .showcase{
+      position:relative;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 85% 15%, rgba(221,179,59,.15), transparent 35%),
+        radial-gradient(circle at 15% 85%, rgba(31,191,130,.08), transparent 40%),
+        linear-gradient(135deg,#14243a 0%,#1b3151 50%,#182847 100%);
+      color:#fff;
+      padding:140px 0;
+    }
+
+    .showcase:before{
+      content:"";
+      position:absolute;
+      inset:auto -8% -80px -8%;
+      height:160px;
+      background:var(--cream);
+      border-radius:50% 50% 0 0;
+    }
+
+    .showcase-head{
+      text-align:center;
+      margin-bottom:80px;
+      position:relative;
+      z-index:1;
+    }
+
+    .showcase-head h2{
+      margin:0 0 12px;
+      font-size:clamp(2rem,5vw,3.4rem);
+      line-height:1.08;
+      letter-spacing:-.04em;
+    }
+
+    .showcase-head p{
+      margin:0;
+      color:#b9c5d3;
+      font-size:1.1rem;
+      max-width:700px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    .showcase-wrapper{
+      position:relative;
+      z-index:1;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:500px;
+    }
+
+    .showcase-image{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .showcase-image img{
+      max-width:85%;
+      height:auto;
+      filter:drop-shadow(0 60px 120px rgba(0,0,0,.5));
+      animation:floatParallax 5s ease-in-out infinite;
+    }
+
+    @keyframes floatParallax{
+      0%, 100%{transform:translateY(0px) rotateZ(0deg)}
+      50%{transform:translateY(-18px) rotateZ(0.5deg)}
+    }
+
+    .feature-bubble{
+      position:absolute;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:8px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:14px 18px;
+      backdrop-filter:blur(20px);
+      font-size:.82rem;
+      font-weight:700;
+      color:#fff;
+      white-space:nowrap;
+      box-shadow:0 10px 32px rgba(0,0,0,.3);
+    }
+
+    .feature-bubble:before{
+      content:"✓";
+      width:28px;
+      height:28px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg,var(--gold-2),var(--gold));
+      border-radius:50%;
+      font-weight:950;
+      font-size:.85rem;
+      color:var(--navy);
+    }
+
+    .bubble-1{animation:bubble1 6s ease-in-out infinite}
+    .bubble-2{animation:bubble2 7s ease-in-out infinite}
+    .bubble-3{animation:bubble3 6.5s ease-in-out infinite}
+    .bubble-4{animation:bubble4 7.5s ease-in-out infinite}
+    .bubble-5{animation:bubble5 6.8s ease-in-out infinite}
+
+    @keyframes bubble1{
+      0%, 100%{transform:translate(0,0)}
+      50%{transform:translate(-8px, -8px)}
+    }
+    @keyframes bubble2{
+      0%, 100%{transform:translate(0,0)}
+      50%{transform:translate(8px, -10px)}
+    }
+    @keyframes bubble3{
+      0%, 100%{transform:translate(0,0)}
+      50%{transform:translate(-10px, 10px)}
+    }
+    @keyframes bubble4{
+      0%, 100%{transform:translate(0,0)}
+      50%{transform:translate(10px, 8px)}
+    }
+    @keyframes bubble5{
+      0%, 100%{transform:translate(0,0)}
+      50%{transform:translate(0px, -12px)}
+    }
+
+    .screenshots-section{
+      background:#fff;
+      padding:100px 0;
+    }
+
+    .screenshots-head{
+      text-align:center;
+      margin-bottom:60px;
+    }
+
+    .screenshots-head h3{
+      margin:0 0 10px;
+      font-size:clamp(1.6rem,4vw,2.4rem);
+      letter-spacing:-.03em;
+      line-height:1.1;
+    }
+
+    .screenshots-head p{
+      margin:0;
+      color:var(--muted);
+      font-size:1rem;
+      max-width:600px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    .screenshots-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:28px;
+    }
+
+    .screenshot-card{
+      position:relative;
+      background:#f9f7f1;
+      border:1px solid var(--line);
+      border-radius:18px;
+      overflow:hidden;
+      aspect-ratio:16/10;
+      box-shadow:0 8px 24px rgba(20,36,58,.08);
+      transition:.35s cubic-bezier(.34,.69,.8,1);
+    }
+
+    .screenshot-card:hover{
+      box-shadow:0 16px 48px rgba(20,36,58,.16);
+      transform:translateY(-6px);
+      border-color:var(--gold);
+    }
+
+    .screenshot-card img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .screenshot-overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(20,36,58,0) 0%, rgba(20,36,58,.7) 100%);
+      display:flex;
+      align-items:flex-end;
+      padding:28px 24px;
+      opacity:0;
+      transition:.35s ease;
+    }
+
+    .screenshot-card:hover .screenshot-overlay{
+      opacity:1;
+    }
+
+    .screenshot-label{
+      color:#fff;
+      font-weight:800;
+      font-size:1.05rem;
+      letter-spacing:-.02em;
+    }
+
     .hero-card{
       background:rgba(255,255,255,.08);
       border:1px solid rgba(255,255,255,.13);
@@ -550,6 +757,11 @@
       .hero-grid{grid-template-columns:1fr}
       .hero-card{max-width:620px}
       .pricing-grid,.extras-grid,.steps{grid-template-columns:1fr}
+      .showcase-head{margin-bottom:60px}
+      .showcase-wrapper{min-height:400px}
+      .feature-bubble{padding:12px 14px;font-size:.75rem}
+      .feature-bubble:before{width:24px;height:24px}
+      .screenshots-grid{grid-template-columns:1fr}
       .price-card.featured{transform:none}
       .cta-box{flex-direction:column;align-items:flex-start}
     }
@@ -616,6 +828,80 @@
             <div class="mock-row"><span>Projeto elétrico</span><b>R$ 1.680,00</b></div>
             <div class="mock-total"><span>Total da proposta</span><span>R$ 10.080,00</span></div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="showcase" id="showcase">
+      <div class="container">
+        <div class="showcase-head">
+          <h2>Tudo que você precisa em um único lugar</h2>
+          <p>Interface intuitiva e poderosa, desenvolvida para acelerar suas vendas e simplificar a gestão.</p>
+        </div>
+
+        <div class="showcase-wrapper">
+          <div class="showcase-image">
+            <img src="assets/mockup-notebook.jpg" alt="Laptop mostrando o painel comercial do Total Obras com dashboard de propostas, conversão de vendas e dados financeiros" />
+
+            <div class="feature-bubble bubble-1" style="top:-60px;left:-80px">
+              <span>Dashboard</span>
+            </div>
+
+            <div class="feature-bubble bubble-2" style="top:-40px;right:-120px">
+              <span>Propostas</span>
+            </div>
+
+            <div class="feature-bubble bubble-3" style="bottom:80px;left:-140px">
+              <span>Financeiro</span>
+            </div>
+
+            <div class="feature-bubble bubble-4" style="bottom:60px;right:-100px">
+              <span>Relatórios</span>
+            </div>
+
+            <div class="feature-bubble bubble-5" style="bottom:-80px;left:50%;transform:translateX(-50%)">
+              <span>Organização</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screenshots-section">
+      <div class="container">
+        <div class="screenshots-head">
+          <h3>Conheça cada módulo</h3>
+          <p>Explore as principais funcionalidades do Total Obras em detalhes.</p>
+        </div>
+
+        <div class="screenshots-grid">
+          <article class="screenshot-card">
+            <img src="assets/screenshots/painel-comercial.jpg" alt="Painel Comercial - Dashboard com métricas de propostas, conversão de vendas e orçamentos" />
+            <div class="screenshot-overlay">
+              <div class="screenshot-label">Painel Comercial</div>
+            </div>
+          </article>
+
+          <article class="screenshot-card">
+            <img src="assets/screenshots/pacotes-personalizacao.jpg" alt="Pacotes de Personalização - Configure categorias de serviços e modelos" />
+            <div class="screenshot-overlay">
+              <div class="screenshot-label">Pacotes & Personalização</div>
+            </div>
+          </article>
+
+          <article class="screenshot-card">
+            <img src="assets/screenshots/financeiro.jpg" alt="Módulo Financeiro - Controle de recebimentos, despesas e fluxo de caixa" />
+            <div class="screenshot-overlay">
+              <div class="screenshot-label">Módulo Financeiro</div>
+            </div>
+          </article>
+
+          <article class="screenshot-card">
+            <img src="assets/screenshots/categorias-servicos.jpg" alt="Categorias de Serviços - Organize e gerencie seus serviços" />
+            <div class="screenshot-overlay">
+              <div class="screenshot-label">Categorias & Serviços</div>
+            </div>
+          </article>
         </div>
       </div>
     </section>
